@@ -1,3 +1,5 @@
+Valorant app
+    Riot developer portal - https://developer.riotgames.com/apis#val-content-v1/GET_getContent
 Sports betting app
     Live Sports Odds API - https://rapidapi.com/theoddsapi/api/live-sports-odds/
 Fantasy Football app
@@ -5,4 +7,4 @@ Fantasy Football app
 3 - Crypto prices app
     Coinranking API - https://rapidapi.com/Coinranking/api/coinranking1/
 4 - Cannabis ecommerce app
-    
+    ???
