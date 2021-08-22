@@ -1,0 +1,27 @@
+1. Let users see Sport odds and be able to track bets.
+
+2. For all sports fans.
+
+3. Sports, Teams, Odds
+
+4. a. db - crappysports
+      table - users
+                -id
+                -name
+                -username
+                -bet_id
+       table - bets
+                -id
+                -Team1
+                -Team2
+                -result
+                -amt_wagered
+                -amt_paid
+    
+    b. Missing data errors
+    c. Users data will need to be secure
+    d. The ability to look through sports and see games/odds.
+        Ability to make bets and view bet history.
+    e. See proj_layout
+    f. Users will Create bets, Read old bets, update profile, delete bets/profile info
+        Posible add on feature Graphs/Charts from https://d3js.org/

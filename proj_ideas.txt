@@ -6,9 +6,6 @@ Valorant app
 
 Sports betting app
     Live Sports Odds API - https://rapidapi.com/theoddsapi/api/live-sports-odds/
+
 Fantasy Football app
-    ???
-Crypto prices app
-    Coinranking API - https://rapidapi.com/Coinranking/api/coinranking1/
-Cannabis ecommerce app
     ???
