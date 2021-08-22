@@ -8,8 +8,7 @@
       table - users
                 -id
                 -name
-                -username
-                -bet_id
+                -password
        table - bets
                 -id
                 -Team1
@@ -17,6 +16,7 @@
                 -result
                 -amt_wagered
                 -amt_paid
+                -user_id
     
     b. Missing data errors
     c. Users data will need to be secure

@@ -1,0 +1,13 @@
+db - crappysports
+    table - users
+        -id
+        -name
+        -password
+    table - bets
+        -id
+        -Team1
+        -Team2
+        -result
+        -amt_wagered
+        -amt_paid
+        -user_id
