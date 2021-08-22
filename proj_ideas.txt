@@ -1,11 +1,11 @@
+Sports betting app
+    Live Sports Odds API - https://rapidapi.com/theoddsapi/api/live-sports-odds/
+
 Valorant app
     Riot developer portal - https://developer.riotgames.com/apis#val-content-v1/GET_getContent
     -Players able to search for their friends by name, get stats about them.
     -Display Agents, Maps, Weapons, Skins, etc..
     -Smaller tracker.gg app
-
-Sports betting app
-    Live Sports Odds API - https://rapidapi.com/theoddsapi/api/live-sports-odds/
 
 Fantasy Football app
     ???
