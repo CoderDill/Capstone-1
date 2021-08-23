@@ -1,7 +1,7 @@
 db - crappysports
     table - users
         -id
-        -name
+        -username
         -password
     table - bets
         -id
