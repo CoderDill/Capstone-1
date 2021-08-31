@@ -29,12 +29,10 @@ def home_page():
         'x-rapidapi-key': "462e5708d7msh6be12143d24c056p1a05b0jsn6f202208f183"
     }
 
-    response = requests.request(
+    nfl_response = requests.request(
         "GET", url, headers=headers, params=querystring)
 
-    print(response.text)
-
-    return render_template("home_page.html", response=response.text[1])
+    return render_template("home_page.html", nfl_response=nfl_response.json())
 
 
 @app.route("/accounts")
