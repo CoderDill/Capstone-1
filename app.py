@@ -2,6 +2,7 @@ from flask import Flask, request, render_template, redirect, flash, session, jso
 from flask_debugtoolbar import DebugToolbarExtension
 import requests
 from models import db, connect_db, User, Bet
+from secrets import API_KEY
 
 
 app = Flask(__name__)
@@ -26,7 +27,7 @@ def home_page():
 
     headers = {
         'x-rapidapi-host': "odds.p.rapidapi.com",
-        'x-rapidapi-key': "462e5708d7msh6be12143d24c056p1a05b0jsn6f202208f183"
+        'x-rapidapi-key': API_KEY
     }
 
     nfl_response = requests.request(
@@ -39,6 +40,9 @@ def home_page():
 def accounts():
     return render_template("account_page.html")
 
+@app.route("/logged_in")
+def logged_in_page():
+    return render_template()
 
 @app.route("/add_user", methods=["POST"])
 def add_user():
