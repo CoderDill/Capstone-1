@@ -2,7 +2,7 @@ from flask import Flask, request, render_template, redirect, flash, session, jso
 from flask_debugtoolbar import DebugToolbarExtension
 import requests
 from models import db, connect_db, User, Bet
-from secrets import API_KEY
+from secret import API_KEY
 
 
 app = Flask(__name__)
@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///crappysports_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
-app.config['SECRET_KEY'] = 'coolbeans'
+app.config['SECRET_KEY'] = API_KEY
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 debug = DebugToolbarExtension(app)
 
@@ -40,14 +40,18 @@ def home_page():
 def accounts():
     return render_template("account_page.html")
 
+
 @app.route("/logged_in")
 def logged_in_page():
     return render_template()
+
 
 @app.route("/add_user", methods=["POST"])
 def add_user():
     username = request.form["username"]
     password = request.form["password"]
 
-    new_user = User(username=username, password=password)
+    new_user = User.register(username=username, password=password)
+    print(new_user.password)
+
     return redirect("/")
