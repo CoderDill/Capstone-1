@@ -1,5 +1,7 @@
+from enum import unique
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
+from sqlalchemy.orm import backref
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
@@ -16,10 +18,10 @@ class User(db.Model):
     __tablename__ = "users"
 
     @classmethod
-    def register(cls, username, pwd):
+    def register(cls, username, pwd, email):
         hashed = bcrypt.generate_password_hash(pwd)
         hashed_utf8 = hashed.decode("utf8")
-        return cls(username=username, password=hashed_utf8)
+        return cls(username=username, password=hashed_utf8, email=email)
 
     @classmethod
     def authenticate(cls, username, pwd):
@@ -32,8 +34,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(20), nullable=False, unique=True)
     password = db.Column(db.Text, nullable=False)
-
-    bets = db.relationship('Bet')
+    email = db.Column(db.Text, nullable=False, unique=True)
 
 
 class Bet(db.Model):
@@ -49,4 +50,4 @@ class Bet(db.Model):
     amt_paid = db.Column(db.Float, nullable=False, default=0)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
-    user = db.relationship('User', 'overlaps="bets"')
+    user = db.relationship('User', backref="bets")
