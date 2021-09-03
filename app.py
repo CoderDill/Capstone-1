@@ -20,7 +20,7 @@ debug = DebugToolbarExtension(app)
 
 @app.route("/")
 def home_page():
-    form = UserForm()
+    # form = UserForm()
     url = "https://odds.p.rapidapi.com/v1/odds"
 
     querystring = {"sport": "americanfootball_nfl", "region": "us",
@@ -34,7 +34,7 @@ def home_page():
     nfl_response = requests.request(
         "GET", url, headers=headers, params=querystring)
 
-    return render_template("home_page.html", nfl_response=nfl_response.json(), form=form)
+    return render_template("home_page.html", nfl_response=nfl_response.json())
 
 
 @app.route("/accounts")
@@ -42,19 +42,21 @@ def accounts():
     return render_template("account_page.html")
 
 
-@app.route("/logged_in")
+@app.route("/sign_in")
 def logged_in_page():
     return render_template()
 
 
-@app.route("/add_user", methods=["POST"])
+@app.route("/add_user", methods=["POST", "GET"])
 def add_user():
+    form = UserForm()
     username = request.form["username"]
     password = request.form["password"]
+    email = request.form["email"]
 
     print(username, password)
-    new_user = User.register(username, password)
+    new_user = User.register(username, password, email)
     db.session.add(new_user)
     db.session.commit()
 
-    return redirect("/")
+    return render_template("logged_in.html")

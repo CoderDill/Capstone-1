@@ -16,42 +16,17 @@
     <div class="container">
       <div class="row">
         <div class="col-9">
-          <h1 class="display-1">CrappySports</h1>
+          <h1 class="display-1 align-middle mb-2">CrappySports</h1>
         </div>
-        <div class="col-3">
-          <form action="/add_user", method="POST">
-            <div class="form-group mt-1">
-              <label for="username">Username</label>
-              <input
-                type="text"
-                class="form-control"
-                id="username"
-                name="username"
-                placeholder="Enter username"
-              />
-            </div>
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input
-                type="password"
-                class="form-control"
-                id="password"
-                name="password"
-                placeholder="Password"
-              />
-            </div>
-            <button class="btn btn-primary mt-2">Submit</button>
-          </form>
-        </div>
+        
       </div>
       <div class="container">
         <div class="row">
-          <div class="col-8">
-          
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link active" id="upcoming-tab" data-toggle="tab" href="#upcoming" role="tab" aria-controls="upcoming" aria-selected="true">Upcoming</a>
-  </li>
+          <div class="col-9">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="upcoming-tab" data-toggle="tab" href="#upcoming" role="tab" aria-controls="upcoming" aria-selected="true">Upcoming</a>
+              </li>
   <li class="nav-item">
     <a class="nav-link" id="nfl-tab" data-toggle="tab" href="#nfl" role="tab" aria-controls="nfl" aria-selected="false">NFL</a>
   </li>
@@ -77,10 +52,36 @@
   <div class="tab-pane" id="mlb" role="tabpanel" aria-labelledby="mlb-tab">{{response}}</div>
   <div class="tab-pane" id="mma" role="tabpanel" aria-labelledby="mma-tab">{{response}}</div>
 </div>
-              <div class="col-4">
-                <form></form>
-              </div>
+              
+          </div>
+        <div class="col-3">
+          <h4 class="display-6">Sign In</h4>
+          <!-- Change to wtform -->
+          <form action="/sign_in", method="POST">
+            <div class="form-group mt-1">
+              <label for="username">Username</label>
+              <input
+                type="text"
+                class="form-control"
+                id="username"
+                name="username"
+                placeholder="Enter username"
+              />
             </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                placeholder="Password"
+              />
+            </div>
+            <button class="btn btn-primary mt-2">Submit</button>
+          </form>
+          <!-- wtform -->
+        </div>
           </div>
         </div>
       </div>
