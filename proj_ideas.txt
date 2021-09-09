@@ -9,3 +9,14 @@ Valorant app
 
 Fantasy Football app
     ???
+
+Ideas for bet tracking:
+    See how you perform by sport.
+    Timeline of balance??
+    Breakdown of how bets perform based on:
+        -betting on favorite
+        -betting on underdog
+        -straight bets
+            --money line
+            --points
+        -parlays
