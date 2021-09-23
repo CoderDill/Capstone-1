@@ -114,7 +114,7 @@ def logged_in_page():
         password = request.form["password"]
         user = User.authenticate(username=username, pwd=password)
         print(user)
-    return redirect("/logged_in")
+    return render_template("logged_in.html")
 
 
 @app.route("/sign_up", methods=["POST"])
@@ -131,4 +131,4 @@ def add_user():
         db.session.add(new_user)
         db.session.commit()
 
-        return redirect("/logged_in")
+        return render_template("logged_in.html")
