@@ -44,7 +44,9 @@
   <div class="tab-pane active" id="upcoming" role="tabpanel" aria-labelledby="upcoming-tab">
       <ul>
             {% for game in upcoming_response.data%}
+              {% if game['sport_key'] == 'baseball_mlb' or game['sport_key'] == 'mma_mixed_martial_arts' or game['sport_key'] == 'americanfootball_nfl'%}
               <li>{{game['teams'][0]}} vs. {{game['teams'][1]}}</li>
+              {%endif%}
             {% endfor %}
           </ul>
   </div>
