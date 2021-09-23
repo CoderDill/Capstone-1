@@ -18,11 +18,7 @@ connect_db(app)
 debug = DebugToolbarExtension(app)
 
 
-@app.route("/")
-def home_page():
-    form_sign_in = UserSignInForm()
-    form_sign_up = UserSignUpForm()
-
+def nfl():
     url = "https://odds.p.rapidapi.com/v1/odds"
 
     querystring = {"sport": "americanfootball_nfl", "region": "us",
@@ -35,8 +31,56 @@ def home_page():
 
     nfl_response = requests.request(
         "GET", url, headers=headers, params=querystring)
+    return nfl_response
 
-    return render_template("home_page.html", nfl_response=nfl_response.json(), form_sign_in=form_sign_in, form_sign_up=form_sign_up)
+
+def mlb():
+    url = "https://odds.p.rapidapi.com/v1/odds"
+
+    querystring = {"sport": "baseball_mlb", "region": "us",
+                   "mkt": "h2h", "dateFormat": "iso", "oddsFormat": "decimal"}
+
+    headers = {
+        'x-rapidapi-host': "odds.p.rapidapi.com",
+        'x-rapidapi-key': API_KEY
+    }
+
+    mlb_response = requests.request(
+        "GET", url, headers=headers, params=querystring)
+    return mlb_response
+
+
+def mma():
+    url = "https://odds.p.rapidapi.com/v1/odds"
+
+    querystring = {"sport": "mma_mixed_martial_arts", "region": "us",
+                   "mkt": "h2h", "dateFormat": "iso", "oddsFormat": "decimal"}
+
+    headers = {
+        'x-rapidapi-host': "odds.p.rapidapi.com",
+        'x-rapidapi-key': API_KEY
+    }
+
+    mma_response = requests.request(
+        "GET", url, headers=headers, params=querystring)
+    return mma_response
+
+
+@app.route("/")
+def home_page():
+    form_sign_in = UserSignInForm()
+    form_sign_up = UserSignUpForm()
+
+    nfl_response = nfl()
+    mlb_response = mlb()
+    mma_response = mma()
+
+    return render_template("home_page.html",
+                           nfl_response=nfl_response.json(),
+                           mlb_response=mlb_response.json(),
+                           mma_response=mma_response.json(),
+                           form_sign_in=form_sign_in,
+                           form_sign_up=form_sign_up)
 
 
 @app.route("/accounts")
@@ -48,22 +92,25 @@ def accounts():
 def logged_in_page():
     form = UserSignInForm()
     if form.validate_on_submit():
-        username = form.username.data
-        user = User.query.filter_by(username=username)
+        username = request.form["username"]
+        password = request.form["password"]
+        user = User.authenticate(username=username, pwd=password)
         print(user)
-    return redirect("/")
+    return redirect("/logged_in")
 
 
 @app.route("/sign_up", methods=["POST"])
 def add_user():
     form = UserSignUpForm()
-    username = request.form["username"]
-    password = request.form["password"]
-    email = request.form["email"]
 
-    print(username, password)
-    new_user = User.register(username, password, email)
-    db.session.add(new_user)
-    db.session.commit()
+    if form.validate_on_submit():
+        username = request.form["username"]
+        password = request.form["password"]
+        email = request.form["email"]
 
-    return redirect("/")
+        print(username, password)
+        new_user = User.register(username, password, email)
+        db.session.add(new_user)
+        db.session.commit()
+
+        return redirect("/logged_in")
