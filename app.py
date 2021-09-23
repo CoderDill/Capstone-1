@@ -18,6 +18,22 @@ connect_db(app)
 debug = DebugToolbarExtension(app)
 
 
+def upcoming():
+    url = "https://odds.p.rapidapi.com/v1/odds"
+
+    querystring = {"sport": "upcoming", "region": "us",
+                   "mkt": "h2h", "dateFormat": "iso", "oddsFormat": "decimal"}
+
+    headers = {
+        'x-rapidapi-host': "odds.p.rapidapi.com",
+        'x-rapidapi-key': API_KEY
+    }
+
+    upcoming_response = requests.request(
+        "GET", url, headers=headers, params=querystring)
+    return upcoming_response
+
+
 def nfl():
     url = "https://odds.p.rapidapi.com/v1/odds"
 
@@ -71,11 +87,13 @@ def home_page():
     form_sign_in = UserSignInForm()
     form_sign_up = UserSignUpForm()
 
+    upcoming_response = upcoming()
     nfl_response = nfl()
     mlb_response = mlb()
     mma_response = mma()
 
     return render_template("home_page.html",
+                           upcoming_response=upcoming_response.json(),
                            nfl_response=nfl_response.json(),
                            mlb_response=mlb_response.json(),
                            mma_response=mma_response.json(),
