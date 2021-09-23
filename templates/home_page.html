@@ -16,7 +16,8 @@
     <div class="container">
       <div class="row">
         <div class="col-9">
-          <h1 class="display-1 align-middle mb-2">CrappySports</h1>
+          <h1 class="display-1 align-middle">CrappySports</h1>
+          <h6 class="display-9 text-muted text-center">Sports Betting</h6>
         </div>
         
       </div>
@@ -26,34 +27,32 @@
             <ul class="nav nav-tabs" id="myTab" role="tablist">
               <li class="nav-item">
                 <a class="nav-link active" id="upcoming-tab" data-toggle="tab" href="#upcoming" role="tab" aria-controls="upcoming" aria-selected="true">Upcoming</a>
-              </li>
-  <li class="nav-item">
-    <a class="nav-link" id="nfl-tab" data-toggle="tab" href="#nfl" role="tab" aria-controls="nfl" aria-selected="false">NFL</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="mlb-tab" data-toggle="tab" href="#mlb" role="tab" aria-controls="mlb" aria-selected="false">MLB</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="mma-tab" data-toggle="tab" href="#mma" role="tab" aria-controls="mma" aria-selected="false">MMA</a>
-  </li>
-</ul>
+                    </li>
+         <li class="nav-item">
+           <a class="nav-link" id="nfl-tab" data-toggle="tab" href="#nfl" role="tab" aria-controls="nfl" aria-selected="false">NFL</a>
+         </li>
+         <li class="nav-item">
+           <a class="nav-link" id="mlb-tab" data-toggle="tab" href="#mlb" role="tab" aria-controls="mlb" aria-selected="false">MLB</a>
+         </li>
+         <li class="nav-item">
+           <a class="nav-link" id="mma-tab" data-toggle="tab" href="#mma" role="tab" aria-controls="mma" aria-selected="false">MMA</a>
+         </li>
+            </ul>
 
 
 <div class="tab-content">
   <div class="tab-pane active" id="upcoming" role="tabpanel" aria-labelledby="upcoming-tab">{{upcoming_response}}</div>
-  <div class="tab-pane" id="nfl" role="tabpanel" aria-labelledby="nfl-tab">
-    <ul>
-    {% for game in nfl_response.data%}
-      <li>{{game['teams'][0]}} vs. {{game['teams'][1]}}</li>
-    {% endfor %}
-    
-</ul>
+    <div class="tab-pane" id="nfl" role="tabpanel" aria-labelledby="nfl-tab">
+          <ul>
+            {% for game in nfl_response.data%}
+              <li>{{game['teams'][0]}} vs. {{game['teams'][1]}}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      <div class="tab-pane" id="mlb" role="tabpanel" aria-labelledby="mlb-tab">{{response}}</div>
+    <div class="tab-pane" id="mma" role="tabpanel" aria-labelledby="mma-tab">{{response}}</div>
   </div>
-  <div class="tab-pane" id="mlb" role="tabpanel" aria-labelledby="mlb-tab">{{response}}</div>
-  <div class="tab-pane" id="mma" role="tabpanel" aria-labelledby="mma-tab">{{response}}</div>
 </div>
-              
-          </div>
         <div class="col-3">
           <h4 class="display-6">Sign In</h4>
           <!-- Change to wtform -->

@@ -42,9 +42,13 @@ def accounts():
     return render_template("account_page.html")
 
 
-@app.route("/sign_in")
+@app.route("/sign_in", methods=["POST"])
 def logged_in_page():
-    return render_template()
+    form = UserForm()
+    if form.validate_on_submit():
+        username = form.username.data
+        print(username)
+    return redirect("/")
 
 
 @app.route("/add_user", methods=["POST", "GET"])
