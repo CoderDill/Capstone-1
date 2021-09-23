@@ -3,7 +3,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 import requests
 from models import db, connect_db, User, Bet
 from secret import API_KEY
-from forms import UserForm
+from forms import UserSignInForm, UserSignUpForm
 
 app = Flask(__name__)
 
@@ -20,7 +20,9 @@ debug = DebugToolbarExtension(app)
 
 @app.route("/")
 def home_page():
-    # form = UserForm()
+    form_sign_in = UserSignInForm()
+    form_sign_up = UserSignUpForm()
+
     url = "https://odds.p.rapidapi.com/v1/odds"
 
     querystring = {"sport": "americanfootball_nfl", "region": "us",
@@ -34,7 +36,7 @@ def home_page():
     nfl_response = requests.request(
         "GET", url, headers=headers, params=querystring)
 
-    return render_template("home_page.html", nfl_response=nfl_response.json())
+    return render_template("home_page.html", nfl_response=nfl_response.json(), form_sign_in=form_sign_in, form_sign_up=form_sign_up)
 
 
 @app.route("/accounts")
@@ -42,18 +44,19 @@ def accounts():
     return render_template("account_page.html")
 
 
-@app.route("/sign_in", methods=["POST"])
+@app.route("/sign_in", methods=["POST", "GET"])
 def logged_in_page():
-    form = UserForm()
+    form = UserSignInForm()
     if form.validate_on_submit():
         username = form.username.data
-        print(username)
+        user = User.query.filter_by(username=username)
+        print(user)
     return redirect("/")
 
 
-@app.route("/add_user", methods=["POST", "GET"])
+@app.route("/sign_up", methods=["POST"])
 def add_user():
-    form = UserForm()
+    form = UserSignUpForm()
     username = request.form["username"]
     password = request.form["password"]
     email = request.form["email"]
@@ -63,4 +66,4 @@ def add_user():
     db.session.add(new_user)
     db.session.commit()
 
-    return render_template("logged_in.html")
+    return redirect("/")
