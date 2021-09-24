@@ -7,8 +7,9 @@
         </div>
         {%if g.user%}
         <div class="col-3">
-          Balance: {{g.user.balance}}<br>
-          <a href="/logout">Logout</a>
+          <div class="row-3">
+            Balance: {{g.user.balance}} <a href="/account">Account</a> <a href="/logout">Logout</a>
+          </div>
         </div>
         {% endif %}
       </div>
@@ -36,9 +37,10 @@
       <div class="container">
             {% for game in upcoming_response.data%}
               {% if game['sport_key'] == 'baseball_mlb' or game['sport_key'] == 'mma_mixed_martial_arts' or game['sport_key'] == 'americanfootball_nfl'%}
-              <span class="row border border-secondary">{{game['teams'][0]}}</span>
-              <span class="row">{{game['teams'][1]}}</span> 
               
+              <span class="row border border-secondary">{{game['teams'][0]}}<b>{{game['sites'][0]['odds']['h2h'][0]}}</b></span>
+              <span class="row border border-secondary">{{game['teams'][1]}}<b>{{game['sites'][0]['odds']['h2h'][1]}}</b></span> 
+              <br>
               {%endif%}
             {% endfor %}
           </div>

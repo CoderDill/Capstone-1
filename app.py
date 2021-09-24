@@ -129,7 +129,7 @@ def home_page():
                            form_sign_up=form_sign_up)
 
 
-@app.route("/accounts")
+@app.route("/account")
 def accounts():
     return render_template("account_page.html")
 
