@@ -1,9 +1,11 @@
-from flask import Flask, request, render_template, redirect, flash, session, jsonify
+from flask import Flask, request, render_template, redirect, flash, session, jsonify, g
 from flask_debugtoolbar import DebugToolbarExtension
 import requests
 from models import db, connect_db, User, Bet
 from secret import API_KEY
 from forms import UserSignInForm, UserSignUpForm
+
+CURR_USER_KEY = "curr_user"
 
 app = Flask(__name__)
 
@@ -16,6 +18,30 @@ app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 connect_db(app)
 
 debug = DebugToolbarExtension(app)
+
+
+@app.before_request
+def add_user_to_g():
+    """If we're logged in, add curr user to Flask global."""
+
+    if CURR_USER_KEY in session:
+        g.user = User.query.get(session[CURR_USER_KEY])
+
+    else:
+        g.user = None
+
+
+def do_login(user):
+    """Log in user."""
+
+    session[CURR_USER_KEY] = user.id
+
+
+def do_logout():
+    """Logout user."""
+
+    if CURR_USER_KEY in session:
+        del session[CURR_USER_KEY]
 
 
 def upcoming():
@@ -113,8 +139,13 @@ def logged_in_page():
         username = request.form["username"]
         password = request.form["password"]
         user = User.authenticate(username=username, pwd=password)
-        print(user)
-    return render_template("logged_in.html")
+        if user:
+            do_login(user)
+            flash(f"Hello, {user.username}!", "success")
+            return redirect("/")
+
+        flash("Invalid credentials.", 'danger')
+    return render_template("home_page.html")
 
 
 @app.route("/sign_up", methods=["POST"])
@@ -132,3 +163,11 @@ def add_user():
         db.session.commit()
 
         return render_template("logged_in.html")
+
+
+@app.route("/logout")
+def logout():
+    session.pop("curr_user")
+    do_logout()
+    flash("You have been logged out.", 'success')
+    return redirect("/")

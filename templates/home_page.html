@@ -5,7 +5,12 @@
           <h1 class="display-1 align-middle">CrappySports</h1>
           <h6 class="display-9 text-muted text-center">Sports Betting</h6>
         </div>
-        
+        {%if g.user%}
+        <div class="col-3">
+          Balance: {{g.user.balance}}<br>
+          <a href="/logout">Logout</a>
+        </div>
+        {% endif %}
       </div>
       <div class="container">
         <div class="row">
@@ -60,8 +65,8 @@
     </div>
   </div>
 </div>
-
-        <div class="col-3">
+          <div class="col-3">
+          {% if not g.user%}
           <h4 class="display-6">Sign In</h4>
           <form action="/sign_in" method="POST" id="sign_in_form">
       {{ form_sign_in.hidden_tag() }} {% for field in form_sign_in if field.widget.input_type !=
@@ -83,6 +88,9 @@
 
       <button class="btn btn-outline-primary btn-block">Sign Up</button>
     </form>
+      {% else %}
+        <h3 class="display-6">{{g.user.username}}'s Bets</h3>
+      {% endif %}
         </div>
 
           </div>
