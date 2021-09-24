@@ -4,6 +4,8 @@ import requests
 from models import db, connect_db, User, Bet
 from secret import API_KEY
 from forms import UserSignInForm, UserSignUpForm
+from sqlalchemy.exc import IntegrityError
+
 
 CURR_USER_KEY = "curr_user"
 
@@ -151,18 +153,25 @@ def logged_in_page():
 @app.route("/sign_up", methods=["POST"])
 def add_user():
     form = UserSignUpForm()
+    if CURR_USER_KEY in session:
+        del session[CURR_USER_KEY]
 
     if form.validate_on_submit():
-        username = request.form["username"]
-        password = request.form["password"]
-        email = request.form["email"]
+        try:
+            username = request.form["username"]
+            password = request.form["password"]
+            email = request.form["email"]
 
-        print(username, password)
-        new_user = User.register(username, password, email)
-        db.session.add(new_user)
-        db.session.commit()
-
-        return render_template("logged_in.html")
+            new_user = User.register(username, password, email)
+            db.session.add(new_user)
+            db.session.commit()
+        except IntegrityError:
+            flash("Username already taken or Email already used.", 'danger')
+            return render_template("home_page.html")
+        do_login(new_user)
+        return redirect("/")
+    else:
+        return render_template("homepage.html")
 
 
 @app.route("/logout")
