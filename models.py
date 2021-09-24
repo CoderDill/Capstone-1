@@ -10,7 +10,8 @@ bcrypt = Bcrypt()
 def connect_db(app):
     db.app = app
     db.init_app(app)
-    
+
+
 class User(db.Model):
     """User"""
 
@@ -34,6 +35,7 @@ class User(db.Model):
     username = db.Column(db.String(20), nullable=False, unique=True)
     password = db.Column(db.Text, nullable=False)
     email = db.Column(db.Text, nullable=False, unique=True)
+    balance = db.Column(db.Integer, nullable=False, default=1000)
 
 
 class Bet(db.Model):
