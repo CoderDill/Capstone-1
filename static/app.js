@@ -8,10 +8,10 @@ triggerTabList.forEach(function (triggerEl) {
   });
 });
 
-$("#add_bet").each(function (event) {
-  $(self).on("click", function (event) {
+$(".add_bet").each(function (event) {
+  $(this).on("click", function (event) {
     event.preventDefault();
-    console.log("here's the event-----", event.target);
+    let selectedBetPrice = $(this).parent().prev().find("b")[0].textContent;
   });
 });
 

@@ -34,10 +34,10 @@
 
 <div class="tab-content">
   <div class="tab-pane active" id="upcoming" role="tabpanel" aria-labelledby="upcoming-tab">
-      <div class="container mt-1">
+      <div class="container mt-2">
             {% for game in upcoming_response.data%}
               {% if game['sport_key'] == 'baseball_mlb' or game['sport_key'] == 'mma_mixed_martial_arts' or game['sport_key'] == 'americanfootball_nfl'%}
-              <div class="row align-items-center justify-content-between border border-secondary p-1">
+              <div class="row align-items-center justify-content-between border border-secondary p-2">
                   <div class="col-3">
                     {{game['teams'][0]}}
                   </div>
@@ -45,11 +45,11 @@
                     <b>{{game['sites'][0]['odds']['h2h'][0]}}</b>
                   </div>
                   <div class="col-1">
-                    <a id="add_bet" href="" style="color: rgb(2, 117, 216)"><i class="far fa-plus-square fa-lg"></i></a>              
+                    <a class="add_bet" href="" style="color: rgb(2, 117, 216)"><i class="far fa-plus-square fa-lg"></i></a>              
                   </div>
               </div>
 
-              <div class="row align-items-center justify-content-between border border-secondary p-1">
+              <div class="row align-items-center justify-content-between border border-secondary p-2">
                   <div class="col-3">
                     {{game['teams'][1]}}
                   </div>
@@ -57,9 +57,10 @@
                     <b>{{game['sites'][0]['odds']['h2h'][1]}}</b>
                   </div>
                   <div class="col-1">
-                    <a id="add_bet" href="" style="color: rgb(2, 117, 216)"><i class="far fa-plus-square fa-lg"></i></a>              
+                    <a class="add_bet" href="" style="color: rgb(2, 117, 216)"><i class="far fa-plus-square fa-lg"></i></a>              
                   </div>
-              </div>              <br>
+              </div>
+              <br>
               {%endif%}
             {% endfor %}
           </div>
