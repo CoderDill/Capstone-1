@@ -173,6 +173,10 @@ def add_user():
     else:
         return render_template("homepage.html")
 
+@app.route("/add_bet")
+def add_bet():
+    
+    redirect("/")
 
 @app.route("/logout")
 def logout():

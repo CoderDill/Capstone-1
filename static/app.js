@@ -8,6 +8,13 @@ triggerTabList.forEach(function (triggerEl) {
   });
 });
 
+$("#add_bet").each(function (event) {
+  $(self).on("click", function (event) {
+    event.preventDefault();
+    console.log("here's the event-----", event.target);
+  });
+});
+
 var triggerEl = document.querySelector('#myTab a[href="#profile"]');
 bootstrap.Tab.getInstance(triggerEl).show(); // Select tab by name
 
