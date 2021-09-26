@@ -37,8 +37,9 @@
       <div class="container mt-2">
             {% for game in upcoming_response.data%}
               {% if game['sport_key'] == 'baseball_mlb' or game['sport_key'] == 'mma_mixed_martial_arts' or game['sport_key'] == 'americanfootball_nfl'%}
+              <h4>{{game.sport_nice}}</h4>
               <div class="row align-items-center justify-content-between border border-secondary p-2">
-                  <div class="col-3">
+                  <div class="col-4">
                     {{game['teams'][0]}}
                   </div>
                   <div class="col-1">
@@ -50,7 +51,7 @@
               </div>
 
               <div class="row align-items-center justify-content-between border border-secondary p-2">
-                  <div class="col-3">
+                  <div class="col-4">
                     {{game['teams'][1]}}
                   </div>
                   <div class="col-1">
@@ -66,25 +67,93 @@
           </div>
   </div>
     <div class="tab-pane" id="nfl" role="tabpanel" aria-labelledby="nfl-tab">
-          <ul>
+          <div class="container mt-2">
             {% for game in nfl_response.data%}
-              <li>{{game['teams'][0]}} vs. {{game['teams'][1]}}</li>
+              <div class="row align-items-center justify-content-between border border-secondary p-2">
+                  <div class="col-4">
+                    {{game['teams'][0]}}
+                  </div>
+                  <div class="col-1">
+                    <b>{{game['sites'][0]['odds']['h2h'][0]}}</b>
+                  </div>
+                  <div class="col-1">
+                    <a class="add_bet" href="" style="color: rgb(2, 117, 216)"><i class="far fa-plus-square fa-lg"></i></a>              
+                  </div>
+              </div>
+
+              <div class="row align-items-center justify-content-between border border-secondary p-2">
+                  <div class="col-4">
+                    {{game['teams'][1]}}
+                  </div>
+                  <div class="col-1">
+                    <b>{{game['sites'][0]['odds']['h2h'][1]}}</b>
+                  </div>
+                  <div class="col-1">
+                    <a class="add_bet" href="" style="color: rgb(2, 117, 216)"><i class="far fa-plus-square fa-lg"></i></a>              
+                  </div>
+              </div>
+              <br>
             {% endfor %}
-          </ul>
+          </div>
         </div>
       <div class="tab-pane" id="mlb" role="tabpanel" aria-labelledby="mlb-tab">
-          <ul>
+          <div class="container mt-2">
             {% for game in mlb_response.data%}
-              <li>{{game['teams'][0]}} vs. {{game['teams'][1]}}</li>
+              <div class="row align-items-center justify-content-between border border-secondary p-2">
+                  <div class="col-4">
+                    {{game['teams'][0]}}
+                  </div>
+                  <div class="col-1">
+                    <b>{{game['sites'][0]['odds']['h2h'][0]}}</b>
+                  </div>
+                  <div class="col-1">
+                    <a class="add_bet" href="" style="color: rgb(2, 117, 216)"><i class="far fa-plus-square fa-lg"></i></a>              
+                  </div>
+              </div>
+
+              <div class="row align-items-center justify-content-between border border-secondary p-2">
+                  <div class="col-4">
+                    {{game['teams'][1]}}
+                  </div>
+                  <div class="col-1">
+                    <b>{{game['sites'][0]['odds']['h2h'][1]}}</b>
+                  </div>
+                  <div class="col-1">
+                    <a class="add_bet" href="" style="color: rgb(2, 117, 216)"><i class="far fa-plus-square fa-lg"></i></a>              
+                  </div>
+              </div>
+              <br>
             {% endfor %}
-          </ul>
+          </div>
       </div>
     <div class="tab-pane" id="mma" role="tabpanel" aria-labelledby="mma-tab">
-          <ul>
+          <div class="container mt-2">
             {% for game in mma_response.data%}
-              <li>{{game['teams'][0]}} vs. {{game['teams'][1]}}</li>
-            {% endfor %}
-          </ul>
+<div class="row align-items-center justify-content-between border border-secondary p-2">
+                  <div class="col-4">
+                    {{game['teams'][0]}}
+                  </div>
+                  <div class="col-1">
+                    <b>{{game['sites'][0]['odds']['h2h'][0]}}</b>
+                  </div>
+                  <div class="col-1">
+                    <a class="add_bet" href="" style="color: rgb(2, 117, 216)"><i class="far fa-plus-square fa-lg"></i></a>              
+                  </div>
+              </div>
+
+              <div class="row align-items-center justify-content-between border border-secondary p-2">
+                  <div class="col-4">
+                    {{game['teams'][1]}}
+                  </div>
+                  <div class="col-1">
+                    <b>{{game['sites'][0]['odds']['h2h'][1]}}</b>
+                  </div>
+                  <div class="col-1">
+                    <a class="add_bet" href="" style="color: rgb(2, 117, 216)"><i class="far fa-plus-square fa-lg"></i></a>              
+                  </div>
+              </div>
+              <br>            {% endfor %}
+          </div>
     </div>
   </div>
 </div>
@@ -112,7 +181,7 @@
       <button class="btn btn-outline-primary btn-block">Sign Up</button>
     </form>
       {% else %}
-        <h3 class="display-6">{{g.user.username}}'s Bets</h3>
+        <h4 class="display-6" id="curr_user">{{g.user.username}}'s Bets</h4>
       {% endif %}
         </div>
 

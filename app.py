@@ -129,11 +129,6 @@ def home_page():
                            form_sign_up=form_sign_up)
 
 
-@app.route("/account")
-def accounts():
-    return render_template("account_page.html")
-
-
 @app.route("/sign_in", methods=["POST", "GET"])
 def logged_in_page():
     form = UserSignInForm()
@@ -172,6 +167,11 @@ def add_user():
         return redirect("/")
     else:
         return render_template("homepage.html")
+
+
+@app.route("/account")
+def accounts():
+    return render_template("account_page.html")
 
 
 @app.route("/add_bet")

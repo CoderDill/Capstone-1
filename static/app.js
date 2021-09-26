@@ -12,6 +12,7 @@ $(".add_bet").each(function (event) {
   $(this).on("click", function (event) {
     event.preventDefault();
     let selectedBetPrice = $(this).parent().prev().find("b")[0].textContent;
+    $("#curr_user").after(selectedBetPrice);
   });
 });
 
