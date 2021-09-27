@@ -3,7 +3,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 import requests
 from models import db, connect_db, User, Bet
 from secret import API_KEY
-from forms import UserSignInForm, UserSignUpForm
+from forms import UserSignInForm, UserSignUpForm, AddBetForm
 from sqlalchemy.exc import IntegrityError
 
 
@@ -114,6 +114,7 @@ def mma():
 def home_page():
     form_sign_in = UserSignInForm()
     form_sign_up = UserSignUpForm()
+    form_add_bet = AddBetForm()
 
     upcoming_response = upcoming()
     nfl_response = nfl()
@@ -126,7 +127,8 @@ def home_page():
                            mlb_response=mlb_response.json(),
                            mma_response=mma_response.json(),
                            form_sign_in=form_sign_in,
-                           form_sign_up=form_sign_up)
+                           form_sign_up=form_sign_up,
+                           form_add_bet=form_add_bet)
 
 
 @app.route("/sign_in", methods=["POST", "GET"])

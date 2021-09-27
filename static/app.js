@@ -11,13 +11,14 @@ triggerTabList.forEach(function (triggerEl) {
 $(".add_bet").each(function (event) {
   $(this).on("click", function (event) {
     event.preventDefault();
+    const betForm = $(".add_bet_form");
     let selectedBetPrice = $(this).parent().prev().find("b")[0].textContent;
-    $("#curr_user").after(selectedBetPrice);
+    let teamName = $(this).parent().prev().prev().text();
+    betForm.show();
+    betForm.after(`${teamName} x ${selectedBetPrice}`);
+    console.log(teamName);
   });
 });
 
 var triggerEl = document.querySelector('#myTab a[href="#profile"]');
 bootstrap.Tab.getInstance(triggerEl).show(); // Select tab by name
-
-// var triggerFirstTabEl = document.querySelector("#myTab li:first-child a");
-// bootstrap.Tab.getInstance(triggerFirstTabEl).show(); // Select first tab
