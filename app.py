@@ -176,9 +176,17 @@ def accounts():
     return render_template("account_page.html")
 
 
-@app.route("/add_bet")
+@app.route("/add_bet", methods=["POST"])
 def add_bet():
+    form = AddBetForm()
 
+    if form.validate_on_submit():
+        user_id = g.user.id
+        amount = request.form["amount"]
+        print(user_id, amount)
+        # new_bet = Bet(amount=amount)
+        # db.session.add(new_bet)
+        # db.session.commit()
     redirect("/")
 
 
