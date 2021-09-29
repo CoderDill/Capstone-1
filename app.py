@@ -121,6 +121,19 @@ def home_page():
     mlb_response = mlb()
     mma_response = mma()
 
+    if g.user:
+        user_id = g.user.id
+        bets = Bet.query.filter_by(user_id=user_id)
+
+        return render_template("home_page.html",
+                               upcoming_response=upcoming_response.json(),
+                               nfl_response=nfl_response.json(),
+                               mlb_response=mlb_response.json(),
+                               mma_response=mma_response.json(),
+                               form_sign_in=form_sign_in,
+                               form_sign_up=form_sign_up,
+                               form_add_bet=form_add_bet,
+                               bets=bets)
     return render_template("home_page.html",
                            upcoming_response=upcoming_response.json(),
                            nfl_response=nfl_response.json(),

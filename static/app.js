@@ -15,7 +15,7 @@ $(".add_bet").each(function (event) {
     let selectedBetPrice = $(this).parent().prev().find("b")[0].textContent;
     let teamName = $(this).parent().prev().prev().text();
     betForm.show();
-    betForm.after(`${teamName} x ${selectedBetPrice}`);
+    // $("#home_team").after(`${betForm.val()} x ${selectedBetPrice}`); NOT GOING TO WORK!
     console.log(teamName);
   });
 });
