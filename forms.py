@@ -16,4 +16,4 @@ class UserSignUpForm(FlaskForm):
 
 
 class AddBetForm(FlaskForm):
-    amount = IntegerField("Amount", validators=[InputRequired()])
+    amt_wagered = IntegerField("Amount", validators=[InputRequired()])

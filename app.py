@@ -195,12 +195,12 @@ def add_bet():
 
     if form.validate_on_submit():
         user_id = g.user.id
-        amount = request.form["amount"]
-        print(user_id, amount)
-        # new_bet = Bet(amount=amount)
-        # db.session.add(new_bet)
-        # db.session.commit()
-    redirect("/")
+        amt_wagered = request.form["amt_wagered"]
+        print(g.user.bets, request)
+        new_bet = Bet(amt_wagered=amt_wagered, user_id=user_id)
+        db.session.add(new_bet)
+        db.session.commit()
+    return redirect("/")
 
 
 @app.route("/logout")
