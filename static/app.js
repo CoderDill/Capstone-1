@@ -9,15 +9,25 @@ triggerTabList.forEach(function(triggerEl) {
 });
 
 $(".add_bet").each(function(event) {
+
+
+
+
     $(this).on("click", function(event) {
         event.preventDefault();
+
         const betForm = $("#add_bet_form");
-        let selectedBetPrice = $(this).parent().prev().find("b")[0].textContent;
+        betForm.show();
+        const teamToBet = $(this).parent().prev().prev().text();
+        const selectedBetPrice = $(this).parent().prev().find("b")[0].textContent;
+
+
         const betFormInput = $(".col-xs-1");
+        betForm.before(`<b>${teamToBet}</b>`);
         betFormInput.after(`<b>${selectedBetPrice}</b>`);
         betFormInput.after("<b> X </b>");
-        betForm.show();
     });
+
 });
 
 var triggerEl = document.querySelector('#myTab a[href="#profile"]');
