@@ -1,0 +1,27 @@
+[23 items
+0:{8 items
+"id":"9c39d44e3d4c98e8f0be745b487dc1b4"
+"sport_key":"baseball_mlb"
+"sport_nice":"MLB"
+"teams":[2 items
+0:
+"Cincinnati Reds"
+1:
+"Pittsburgh Pirates"
+]
+"home_team":"Pittsburgh Pirates"
+"commence_time":"2021-10-01T22:35:00Z"
+"sites":[12 items
+0:{4 items
+"site_key":"unibet"
+"site_nice":"Unibet"
+"last_update":"2021-10-02T01:30:03Z"
+"odds":{1 item
+"h2h":[2 items
+0:
+3.25
+1:
+1.34
+]
+}
+}
