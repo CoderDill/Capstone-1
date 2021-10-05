@@ -193,10 +193,14 @@ def accounts():
 def add_bet():
     form = AddBetForm()
     print(request.json)
+    request_data = request.get_json(force=True)
+    print(request_data)
 
     if form.validate_on_submit():
+
         user_id = g.user.id
         team_1 = request.json['team_1']
+        print(f"--------{team_1}")
         team_2 = request.json['team_2']
         amt_wagered = request.form["amt_wagered"]
 
@@ -206,7 +210,7 @@ def add_bet():
         db.session.commit()
         return redirect("/")
 
-    return redirect("/")
+    return render_template("bet.html")
 
 
 @app.route("/logout")
