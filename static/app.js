@@ -23,6 +23,7 @@ $(".add_bet").each(function(event) {
         betForm.before(`<b>${team}</b>`);
         betFormInput.after(`<b>${selectedBetPrice}</b>`);
         betFormInput.after("<b> X </b>");
+        $(".add_bet").hide();
     });
 });
 
