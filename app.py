@@ -189,7 +189,7 @@ def accounts():
     return render_template("account_page.html")
 
 
-@app.route("/add_bet", methods=["POST"])
+@app.route("/add_bet", methods=["GET", "POST"])
 def add_bet():
     form = AddBetForm()
     print(request.json)
@@ -203,14 +203,14 @@ def add_bet():
         print(f"--------{team_1}")
         team_2 = request.json['team_2']
         amt_wagered = request.form["amt_wagered"]
-
         new_bet = Bet(team_1=team_1, team_2=team_2,
                       amt_wagered=amt_wagered, user_id=user_id)
         db.session.add(new_bet)
         db.session.commit()
-        return redirect("/")
+        print("commit done")
+        return "<h1>Bet Made</h1>"
 
-    return render_template("bet.html")
+    return f'<h1>{form.errors}</h1>'
 
 
 @app.route("/logout")
