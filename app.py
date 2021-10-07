@@ -186,10 +186,13 @@ def add_user():
 
 @app.route("/account")
 def accounts():
-    return render_template("account_page.html")
+    user_id = g.user.id
+    user = User.query.get(user_id)
+    print(user)
+    return render_template("account_page.html", user=user)
 
 
-@app.route("/add_bet", methods=["GET", "POST"])
+@app.route("/add_bet", methods=["POST"])
 def add_bet():
     form = AddBetForm()
     print(request.json)
@@ -211,6 +214,7 @@ def add_bet():
         return "<h1>Bet Made</h1>"
 
     return f'<h1>{form.errors}</h1>'
+
 
 
 @app.route("/logout")
