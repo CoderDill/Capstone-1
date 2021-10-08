@@ -10,23 +10,13 @@ triggerTabList.forEach(function(triggerEl) {
 
 $("#add_bet_form").submit(function(event) {
     event.preventDefault();
-    console.log("submitted");
-    let $team = $(this).prev();
-    console.log($team);
-    let team1;
-    let team2;
 
-    if ($team[0].id === "bet_away_team") {
-        team1 = $team[0].textContent;
-        team2 = $("#bet_home_team").text().trim();
-    } else if ($team[0].id === "bet_home_team") {
-        team1 = $("#bet_away_team").text().trim();
-        team2 = $team[0].innerText;
-    }
+    const teams = $(this).attr("data-teams");
+    const teamsArray = teams.split(",");
 
     let betInfo = {
-        team_1: team1,
-        team_2: team2,
+        team_1: teamsArray[0],
+        team_2: teamsArray[1],
     };
 
     let betArray = JSON.stringify(betInfo);
@@ -61,12 +51,7 @@ $(".add_bet").each(function(event) {
             console.log(awayTeam);
         } else {
             homeTeam = team.text().trim();
-            awayTeam = team
-                .parent()
-                .previous()
-                .children("#away_team")
-                .text()
-                .trim();
+            awayTeam = team.parent().previous().children("#away_team").text().trim();
         }
 
         const teamName = team.text().trim();
@@ -74,7 +59,7 @@ $(".add_bet").each(function(event) {
         const betForm = $("#add_bet_form");
 
         betForm.show();
-
+        betForm.attr("data-teams", [awayTeam, homeTeam]);
         const selectedBetPrice = $(this).parent().prev().find("b")[0].textContent;
 
         const betFormInput = $(".col-xs-1");
