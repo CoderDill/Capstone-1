@@ -196,6 +196,7 @@ def accounts():
 def add_bet():
     form = AddBetForm()
     print(request.json)
+    print(form)
     request_data = request.get_json(force=True)
     print(request_data)
 
