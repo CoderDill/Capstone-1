@@ -55,7 +55,7 @@ $(".add_bet").each(function(event) {
         }
 
         const teamName = team.text().trim();
-        const $teamName = $("<b>").text(teamName);
+        const $teamName = $("<b>").attr("id", "team_name").text(teamName);
         const betForm = $("#add_bet_form");
 
         betForm.show();
@@ -71,6 +71,12 @@ $(".add_bet").each(function(event) {
     });
 });
 
+$("#cancel_bet").click(function() {
+    $("#add_bet_form").hide();
+    $("#team_name").hide();
+    $(".add_bet").show();
+
+});
 var triggerEl = document.querySelector('#myTab a[href="#profile"]');
 bootstrap.Tab.getInstance(triggerEl).show(); // Select tab by name);
 bootstrap.Tab.getInstance(triggerEl).show(); // Select tab by name

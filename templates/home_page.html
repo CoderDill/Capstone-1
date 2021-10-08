@@ -67,7 +67,7 @@
                         <div class="container mt-2">
                             {% for game in nfl_response.data%}
                             <div class="row align-items-center justify-content-between border border-rounded p-2">
-                                <div class="col-4">
+                                <div class="col-4" id="away_team">
                                     {{game['teams'][0]}}
                                 </div>
                                 <div class="col-1">
@@ -79,7 +79,7 @@
                             </div>
 
                             <div class="row align-items-center justify-content-between border border-rounded p-2">
-                                <div class="col-4">
+                                <div class="col-4" id="home_team">
                                     {{game['teams'][1]}}
                                 </div>
                                 <div class="col-1">
@@ -181,6 +181,7 @@
                             <span class="text-danger">{{ error }}</span> {%endfor%} {{ field(placeholder=field.label.text, class="col-xs-1") }}{%endfor%}
 
                             <button class="btn btn-outline-primary mt-2" id="submit_bet">Submit</button>
+                            <button type="button" class="btn btn-outline-danger mt-2 mr-2" id="cancel_bet">Cancel</button>
                         </form>
 
                         {% if not g.user.bets%}
