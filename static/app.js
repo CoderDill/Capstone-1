@@ -11,22 +11,22 @@ triggerTabList.forEach(function(triggerEl) {
 $("#add_bet_form").submit(function(event) {
     event.preventDefault();
     console.log("submitted");
-    let team_id = $(this).prev();
-    console.log(team_id);
-    let team_1;
-    let team_2;
+    let $team = $(this).prev();
+    console.log($team);
+    let team1;
+    let team2;
 
-    if (team_id === "away_team") {
-        team_1 = team;
-        team_2 = $("#home_team").text().trim();
-    } else {
-        team_2 = team;
-        team_1 = $("#away_team").text().trim();
+    if ($team[0].id === "bet_away_team") {
+        team1 = $team[0].textContent;
+        team2 = $("#bet_home_team").text().trim();
+    } else if ($team[0].id === "bet_home_team") {
+        team1 = $("#bet_away_team").text().trim();
+        team2 = $team[0].innerText;
     }
 
     let betInfo = {
-        team_1: team_1,
-        team_2: team_2,
+        team_1: team1,
+        team_2: team2,
     };
 
     let betArray = JSON.stringify(betInfo);
@@ -47,26 +47,39 @@ $(".add_bet").each(function(event) {
     $(this).on("click", function(event) {
         event.preventDefault();
         $("#no_bets").hide();
+
         const team = $(this).parent().prev().prev();
         console.log(team);
-        const team_id = team[0].id;
-        console.log(team_id);
-        const team_name = team.text().trim();
+        const $team = team[0].id;
+        console.log($team);
+        let homeTeam;
+        let awayTeam;
+        if ($team === "away_team") {
+            homeTeam = team.parent().next().children("#home_team").text().trim();
+            console.log(homeTeam);
+            awayTeam = team.text().trim();
+            console.log(awayTeam);
+        } else {
+            homeTeam = team.text().trim();
+            awayTeam = team
+                .parent()
+                .previous()
+                .children("#away_team")
+                .text()
+                .trim();
+        }
+
+        const teamName = team.text().trim();
+        const $teamName = $("<b>").text(teamName);
         const betForm = $("#add_bet_form");
-        const away_team = $(`<span id=${team_id}>Away</span>`);
-        const home_team = $(`<span id=${team_id}>Home</span>`);
+
         betForm.show();
 
         const selectedBetPrice = $(this).parent().prev().find("b")[0].textContent;
 
         const betFormInput = $(".col-xs-1");
-        betForm.before($(`<b>${team_name}</b>`));
-        if (team_id === "away_team") {
-            betForm.before(away_team);
-        } else {
-            betForm.before(home_team);
-        }
 
+        betForm.before($teamName);
         betFormInput.after(`<b>${selectedBetPrice}</b>`);
         betFormInput.after("<b> X </b>");
         $(".add_bet").hide();
