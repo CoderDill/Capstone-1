@@ -51,11 +51,11 @@ $(".add_bet").each(function(event) {
             console.log(awayTeam);
         } else {
             homeTeam = team.text().trim();
-            awayTeam = team.parent().previous().children("#away_team").text().trim();
+            awayTeam = team.parent().prev().children("#away_team").text().trim();
         }
 
-        const teamName = team.text().trim();
-        const $teamName = $("<b>").attr("id", "team_name").text(teamName);
+        const teamToBet = team.text().trim();
+        const $teamName = $("<b>").attr("class", "team_to_bet").text(teamToBet);
         const betForm = $("#add_bet_form");
 
         betForm.show();
@@ -65,17 +65,18 @@ $(".add_bet").each(function(event) {
         const betFormInput = $(".col-xs-1");
 
         betForm.before($teamName);
-        betFormInput.after(`<b>${selectedBetPrice}</b>`);
-        betFormInput.after("<b> X </b>");
+        betFormInput.after(`<b class="bet_price">${selectedBetPrice}</b>`);
+        betFormInput.after("<b class='X'> X </b>");
         $(".add_bet").hide();
     });
 });
 
 $("#cancel_bet").click(function() {
     $("#add_bet_form").hide();
-    $("#team_name").hide();
+    $(".team_to_bet").hide();
+    $(".bet_price").hide();
+    $(".X").hide();
     $(".add_bet").show();
-
 });
 var triggerEl = document.querySelector('#myTab a[href="#profile"]');
 bootstrap.Tab.getInstance(triggerEl).show(); // Select tab by name);

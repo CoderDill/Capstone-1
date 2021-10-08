@@ -96,7 +96,7 @@
                         <div class="container mt-2">
                             {% for game in mlb_response.data%}
                             <div class="row align-items-center justify-content-between border border-rounded p-2">
-                                <div class="col-4">
+                                <div class="col-4" id="away_team">
                                     {{game['teams'][0]}}
                                 </div>
                                 <div class="col-1">
@@ -108,7 +108,7 @@
                             </div>
 
                             <div class="row align-items-center justify-content-between border border-rounded p-2">
-                                <div class="col-4">
+                                <div class="col-4" id="home_team">
                                     {{game['teams'][1]}}
                                 </div>
                                 <div class="col-1">
@@ -125,7 +125,7 @@
                         <div class="container mt-2">
                             {% for game in mma_response.data%}
                             <div class="row align-items-center justify-content-between border border-rounded p-2">
-                                <div class="col-4">
+                                <div class="col-4" id="away_team">
                                     {{game['teams'][0]}}
                                 </div>
                                 <div class="col-1">
@@ -137,7 +137,7 @@
                             </div>
 
                             <div class="row align-items-center justify-content-between border border-rounded p-2">
-                                <div class="col-4">
+                                <div class="col-4" id="home_team">
                                     {{game['teams'][1]}}
                                 </div>
                                 <div class="col-1">
