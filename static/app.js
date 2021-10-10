@@ -8,30 +8,28 @@ triggerTabList.forEach(function (triggerEl) {
   });
 });
 
-$("#add_bet_form").submit(function (event) {
-  event.preventDefault();
+// $("#add_bet_form").submit(function (event) {
+//   const teams = $(this).attr("data-teams");
+//   const teamsArray = teams.split(",");
 
-  const teams = $(this).attr("data-teams");
-  const teamsArray = teams.split(",");
+//   let betInfo = {
+//     team_1: teamsArray[0],
+//     team_2: teamsArray[1],
+//   };
 
-  let betInfo = {
-    team_1: teamsArray[0],
-    team_2: teamsArray[1],
-  };
+//   let betArray = JSON.stringify(betInfo);
 
-  let betArray = JSON.stringify(betInfo);
-
-  $.ajax({
-    type: "POST",
-    url: "/add_bet",
-    data: betArray,
-    contentType: "application/json; charset=utf-8",
-    dataType: "json",
-    success: function (results) {
-      console.log(results);
-    },
-  });
-});
+//   $.ajax({
+//     type: "POST",
+//     url: "/add_bet",
+//     data: betArray,
+//     contentType: "application/json; charset=utf-8",
+//     dataType: "json",
+//     success: function (results) {
+//       console.log(results);
+//     },
+//   });
+// });
 
 $(".add_bet").each(function (event) {
   $(this).on("click", function (event) {
@@ -59,7 +57,7 @@ $(".add_bet").each(function (event) {
     const betForm = $("#add_bet_form");
 
     betForm.show();
-    betForm.attr("data-teams", [awayTeam, homeTeam]);
+    $("#hidden").val([awayTeam, homeTeam]);
     const selectedBetPrice = $(this).parent().prev().find("b")[0].textContent;
 
     const betFormInput = $(".col-xs-1");

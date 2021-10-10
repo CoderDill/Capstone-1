@@ -195,27 +195,23 @@ def accounts():
 @app.route("/add_bet", methods=["POST"])
 def add_bet():
     form = AddBetForm()
-    print(request.json)
-    print(form.validate_on_submit())
-    request_data = request.get_json(force=True)
-    print(request_data)
-
+    
     if form.validate_on_submit():
         try:
             user_id = g.user.id
-            team_1 = request.json['team_1']
-            print(f"--------{team_1}")
-            team_2 = request.json['team_2']
+            form_data = request.form['hidden']
+
+            teams = form_data.split(',')
             amt_wagered = request.form["amt_wagered"]
-            new_bet = Bet(team_1=team_1, team_2=team_2,
+            new_bet = Bet(team_1=teams[0], team_2=teams[1],
                           amt_wagered=amt_wagered, user_id=user_id)
             db.session.add(new_bet)
             db.session.commit()
             print("commit done")
-            return "<h1>Bet Made</h1>"
+            return redirect("/")
         except:
             redirect("/")
-    return f'<h1>{form.errors}</h1>'
+    return redirect("/")
 
 
 @app.route("/logout")

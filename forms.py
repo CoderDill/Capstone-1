@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, IntegerField
+from wtforms.fields.simple import HiddenField
 from wtforms.validators import InputRequired, Email
 from wtforms.fields.html5 import EmailField
 
@@ -17,3 +18,4 @@ class UserSignUpForm(FlaskForm):
 
 class AddBetForm(FlaskForm):
     amt_wagered = IntegerField("Amount", validators=[InputRequired()])
+    hidden = HiddenField("hidden")
