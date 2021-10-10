@@ -8,28 +8,6 @@ triggerTabList.forEach(function (triggerEl) {
   });
 });
 
-// $("#add_bet_form").submit(function (event) {
-//   const teams = $(this).attr("data-teams");
-//   const teamsArray = teams.split(",");
-
-//   let betInfo = {
-//     team_1: teamsArray[0],
-//     team_2: teamsArray[1],
-//   };
-
-//   let betArray = JSON.stringify(betInfo);
-
-//   $.ajax({
-//     type: "POST",
-//     url: "/add_bet",
-//     data: betArray,
-//     contentType: "application/json; charset=utf-8",
-//     dataType: "json",
-//     success: function (results) {
-//       console.log(results);
-//     },
-//   });
-// });
 
 $(".add_bet").each(function (event) {
   $(this).on("click", function (event) {
