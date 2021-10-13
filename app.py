@@ -2,10 +2,10 @@ from flask import Flask, request, render_template, redirect, flash, session, jso
 from flask_debugtoolbar import DebugToolbarExtension
 import requests
 from models import db, connect_db, User, Bet
-from secret import API_KEY
 from forms import UserSignInForm, UserSignUpForm, AddBetForm
 from sqlalchemy.exc import IntegrityError
 
+API_KEY = '462e5708d7msh6be12143d24c056p1a05b0jsn6f202208f183'
 
 CURR_USER_KEY = "curr_user"
 
@@ -195,7 +195,7 @@ def accounts():
 @app.route("/add_bet", methods=["POST"])
 def add_bet():
     form = AddBetForm()
-    
+
     if form.validate_on_submit():
         try:
             user_id = g.user.id
@@ -207,7 +207,7 @@ def add_bet():
                           amt_wagered=amt_wagered, user_id=user_id)
             db.session.add(new_bet)
             db.session.commit()
-            print("commit done")
+            
             return redirect("/")
         except:
             redirect("/")
