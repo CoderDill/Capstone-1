@@ -187,10 +187,10 @@
                         {% if not g.user.bets%}
                         <h3 class="display-6 center" id="no_bets">No Bets to display</h3> {% endif%} {% for bet in bets%}
                         <div class="row border border-rounded mt-2 ">
-                            <div class="col " id="away_team ">{{bet.team_2}}</div>
-                            <div class="col "><b>VS</b></div>
-                            <div class="col " id="home_team ">{{bet.team_1}}</div>
-                            <div class="col ">{{bet.result}}</div>
+                            <div class="col" id="away_team ">{{bet.team_2}}</div>
+                            <div class="col"><b>VS</b></div>
+                            <div class="col" id="home_team ">{{bet.team_1}}</div>
+                            <div class="col">{{bet.result}}</div>
                         </div>
                         {% endfor%}
                     </div>

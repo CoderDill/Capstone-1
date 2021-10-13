@@ -207,7 +207,7 @@ def add_bet():
                           amt_wagered=amt_wagered, user_id=user_id)
             db.session.add(new_bet)
             db.session.commit()
-            print("commit done")
+            
             return redirect("/")
         except:
             redirect("/")
