@@ -35,7 +35,7 @@
                 <div class="tab-content">
                     <div class="tab-pane active" id="upcoming" role="tabpanel" aria-labelledby="upcoming-tab">
                         <div class="container mt-2">
-                            {% for game in upcoming_response.data%} {% if game['sport_key'] == 'baseball_mlb' or game['sport_key'] == 'mma_mixed_martial_arts' or game['sport_key'] == 'americanfootball_nfl'%}
+                            {% for game in upcoming_response.data[:10]%} {% if game['sport_key'] == 'baseball_mlb' or game['sport_key'] == 'mma_mixed_martial_arts' or game['sport_key'] == 'americanfootball_nfl'%}
                             <h4>{{game.sport_nice}}</h4>
                             <div class="row align-items-center justify-content-between border border-rounded p-2">
                                 <div class="col-4" id="away_team">
@@ -65,7 +65,7 @@
                     </div>
                     <div class="tab-pane" id="nfl" role="tabpanel" aria-labelledby="nfl-tab">
                         <div class="container mt-2">
-                            {% for game in nfl_response.data%}
+                            {% for game in nfl_response.data[:10]%}
                             <div class="row align-items-center justify-content-between border border-rounded p-2">
                                 <div class="col-4" id="away_team">
                                     {{game['teams'][0]}}
@@ -94,7 +94,7 @@
                     </div>
                     <div class="tab-pane" id="mlb" role="tabpanel" aria-labelledby="mlb-tab">
                         <div class="container mt-2">
-                            {% for game in mlb_response.data%}
+                            {% for game in mlb_response.data[:10]%}
                             <div class="row align-items-center justify-content-between border border-rounded p-2">
                                 <div class="col-4" id="away_team">
                                     {{game['teams'][0]}}
@@ -123,7 +123,7 @@
                     </div>
                     <div class="tab-pane" id="mma" role="tabpanel" aria-labelledby="mma-tab">
                         <div class="container mt-2">
-                            {% for game in mma_response.data%}
+                            {% for game in mma_response.data[:10]%}
                             <div class="row align-items-center justify-content-between border border-rounded p-2">
                                 <div class="col-4" id="away_team">
                                     {{game['teams'][0]}}
