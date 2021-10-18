@@ -206,7 +206,8 @@ def add_bet():
 
             # x = amt_wagered * odds
             bet_odds = bet_data[2]
-            print(bet_data[2])
+            pos_win = (bet_odds * amt_wagered) + amt_wagered
+            print(pos_win)
 
             new_bet = Bet(team_1=bet_data[0], team_2=bet_data[1],
                           amt_wagered=amt_wagered, user_id=user_id)
@@ -215,7 +216,7 @@ def add_bet():
 
             return redirect("/")
         except:
-            print(request)
+            print(request.data)
             flash("Bet Failed", 'danger')
             redirect("/")
     return redirect("/")
