@@ -8,7 +8,6 @@ triggerTabList.forEach(function (triggerEl) {
   });
 });
 
-
 $(".add_bet").each(function (event) {
   $(this).on("click", function (event) {
     event.preventDefault();
@@ -41,7 +40,9 @@ $(".add_bet").each(function (event) {
     const betFormInput = $(".col-xs-1");
 
     betForm.before($teamName);
-    betFormInput.after(`<b class="bet_price">${selectedBetPrice}</b>`);
+    betFormInput.after(
+      `<b id="bet_odds" value=${selectedBetPrice}>${selectedBetPrice}</b>`
+    );
     betFormInput.after("<b class='X'> X </b>");
     $(".add_bet").hide();
   });
@@ -50,7 +51,7 @@ $(".add_bet").each(function (event) {
 $("#cancel_bet").click(function () {
   $("#add_bet_form").hide();
   $(".team_to_bet").hide();
-  $(".bet_price").hide();
+  $("#bet_odds").hide();
   $(".X").hide();
   $(".add_bet").show();
 });

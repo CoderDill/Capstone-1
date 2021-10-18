@@ -1,11 +1,11 @@
 from flask import Flask, request, render_template, redirect, flash, session, jsonify, g
 from flask_debugtoolbar import DebugToolbarExtension
 import requests
+from secret import API_KEY
 from models import db, connect_db, User, Bet
 from forms import UserSignInForm, UserSignUpForm, AddBetForm
 from sqlalchemy.exc import IntegrityError
 
-API_KEY = '462e5708d7msh6be12143d24c056p1a05b0jsn6f202208f183'
 
 CURR_USER_KEY = "curr_user"
 
@@ -157,7 +157,7 @@ def logged_in_page():
             return redirect("/")
 
         flash("Invalid credentials.", 'danger')
-    return render_template("home_page.html")
+    return redirect("/")
 
 
 @app.route("/sign_up", methods=["POST"])
@@ -200,16 +200,23 @@ def add_bet():
         try:
             user_id = g.user.id
             form_data = request.form['hidden']
-
+            bet_odds = request.form['bet_odds']
+            print(bet_odds)
             teams = form_data.split(',')
             amt_wagered = request.form["amt_wagered"]
+
+            # x = amt_wagered * odds
+            print(request)
+
             new_bet = Bet(team_1=teams[0], team_2=teams[1],
                           amt_wagered=amt_wagered, user_id=user_id)
             db.session.add(new_bet)
             db.session.commit()
-            
+
             return redirect("/")
         except:
+            print(request)
+            flash("Bet Failed", 'danger')
             redirect("/")
     return redirect("/")
 
