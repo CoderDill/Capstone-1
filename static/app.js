@@ -34,14 +34,15 @@ $(".add_bet").each(function (event) {
     const betForm = $("#add_bet_form");
 
     betForm.show();
-    $("#hidden").val([awayTeam, homeTeam]);
     const selectedBetPrice = $(this).parent().prev().find("b")[0].textContent;
+
+    $("#hidden").val([awayTeam, homeTeam, selectedBetPrice]);
 
     const betFormInput = $(".col-xs-1");
 
     betForm.before($teamName);
     betFormInput.after(
-      `<b id="bet_odds" value=${selectedBetPrice}>${selectedBetPrice}</b>`
+      `<b id="bet_odds" name=${selectedBetPrice} value=${selectedBetPrice}>${selectedBetPrice}</b>`
     );
     betFormInput.after("<b class='X'> X </b>");
     $(".add_bet").hide();

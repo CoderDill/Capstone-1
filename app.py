@@ -200,15 +200,15 @@ def add_bet():
         try:
             user_id = g.user.id
             form_data = request.form['hidden']
-            bet_odds = request.form['bet_odds']
-            print(bet_odds)
-            teams = form_data.split(',')
+
+            bet_data = form_data.split(',')
             amt_wagered = request.form["amt_wagered"]
 
             # x = amt_wagered * odds
-            print(request)
+            bet_odds = bet_data[2]
+            print(bet_data[2])
 
-            new_bet = Bet(team_1=teams[0], team_2=teams[1],
+            new_bet = Bet(team_1=bet_data[0], team_2=bet_data[1],
                           amt_wagered=amt_wagered, user_id=user_id)
             db.session.add(new_bet)
             db.session.commit()
