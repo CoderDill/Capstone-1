@@ -120,7 +120,7 @@ def home_page():
     nfl_response = nfl()
     mlb_response = mlb()
     mma_response = mma()
-
+    print(upcoming_response, nfl_response)
     if g.user:
         user_id = g.user.id
         bets = Bet.query.filter_by(user_id=user_id)
@@ -205,9 +205,14 @@ def add_bet():
             amt_wagered = request.form["amt_wagered"]
             new_bet = Bet(team_1=teams[0], team_2=teams[1],
                           amt_wagered=amt_wagered, user_id=user_id)
-            db.session.add(new_bet)
+
+            user = User.query.get(user_id)
+            print(user)
+            user.balance = user.balance - amt_wagered
+            print(user)
+            db.session.add_all(new_bet, user)
             db.session.commit()
-            
+
             return redirect("/")
         except:
             redirect("/")
