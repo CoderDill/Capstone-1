@@ -8,7 +8,7 @@
         {%if g.user%}
         <div class="col-3">
             <div class="row-3">
-                Balance: {{g.user.balance}} <a href="/account">Account</a> <a href="/logout">Logout</a>
+                Balance: {{g.user.balance}} <a href="/logout">Logout</a>
             </div>
         </div>
         {% endif %}
@@ -35,7 +35,7 @@
                 <div class="tab-content">
                     <div class="tab-pane active" id="upcoming" role="tabpanel" aria-labelledby="upcoming-tab">
                         <div class="container mt-2">
-                            {% for game in upcoming_response.data%} {% if game['sport_key'] == 'baseball_mlb' or game['sport_key'] == 'mma_mixed_martial_arts' or game['sport_key'] == 'americanfootball_nfl'%}
+                            {% for game in upcoming_response.data[:10]%} {% if game['sport_key'] == 'baseball_mlb' or game['sport_key'] == 'mma_mixed_martial_arts' or game['sport_key'] == 'americanfootball_nfl'%}
                             <h4>{{game.sport_nice}}</h4>
                             <div class="row align-items-center justify-content-between border border-rounded p-2">
                                 <div class="col-4" id="away_team">
@@ -65,9 +65,9 @@
                     </div>
                     <div class="tab-pane" id="nfl" role="tabpanel" aria-labelledby="nfl-tab">
                         <div class="container mt-2">
-                            {% for game in nfl_response.data%}
+                            {% for game in nfl_response.data[:10]%}
                             <div class="row align-items-center justify-content-between border border-rounded p-2">
-                                <div class="col-4">
+                                <div class="col-4" id="away_team">
                                     {{game['teams'][0]}}
                                 </div>
                                 <div class="col-1">
@@ -79,7 +79,7 @@
                             </div>
 
                             <div class="row align-items-center justify-content-between border border-rounded p-2">
-                                <div class="col-4">
+                                <div class="col-4" id="home_team">
                                     {{game['teams'][1]}}
                                 </div>
                                 <div class="col-1">
@@ -94,9 +94,9 @@
                     </div>
                     <div class="tab-pane" id="mlb" role="tabpanel" aria-labelledby="mlb-tab">
                         <div class="container mt-2">
-                            {% for game in mlb_response.data%}
+                            {% for game in mlb_response.data[:10]%}
                             <div class="row align-items-center justify-content-between border border-rounded p-2">
-                                <div class="col-4">
+                                <div class="col-4" id="away_team">
                                     {{game['teams'][0]}}
                                 </div>
                                 <div class="col-1">
@@ -108,7 +108,7 @@
                             </div>
 
                             <div class="row align-items-center justify-content-between border border-rounded p-2">
-                                <div class="col-4">
+                                <div class="col-4" id="home_team">
                                     {{game['teams'][1]}}
                                 </div>
                                 <div class="col-1">
@@ -123,9 +123,9 @@
                     </div>
                     <div class="tab-pane" id="mma" role="tabpanel" aria-labelledby="mma-tab">
                         <div class="container mt-2">
-                            {% for game in mma_response.data%}
+                            {% for game in mma_response.data[:10]%}
                             <div class="row align-items-center justify-content-between border border-rounded p-2">
-                                <div class="col-4">
+                                <div class="col-4" id="away_team">
                                     {{game['teams'][0]}}
                                 </div>
                                 <div class="col-1">
@@ -137,7 +137,7 @@
                             </div>
 
                             <div class="row align-items-center justify-content-between border border-rounded p-2">
-                                <div class="col-4">
+                                <div class="col-4" id="home_team">
                                     {{game['teams'][1]}}
                                 </div>
                                 <div class="col-1">
@@ -174,24 +174,26 @@
                     <div class="row border border-rounded">
                         <h4 class="display-6" id="curr_user">{{g.user.username}}'s Bets</h4>
                     </div>
-                    <div class="row">
+                    <div class="row" id="bets">
+
                         <form action="/add_bet" class="mt-2" id="add_bet_form" method="POST" style="display: none">
                             {{ form_add_bet.hidden_tag() }} {% for field in form_add_bet if field.widget.input_type != 'hidden'%} {% for error in field.errors%}
                             <span class="text-danger">{{ error }}</span> {%endfor%} {{ field(placeholder=field.label.text, class="col-xs-1") }}{%endfor%}
-                            <button class="btn btn-outline-primary btn-block mt-2">Submit Bet</button>
+
+                            <button class="btn btn-outline-primary mt-2" id="submit_bet">Submit</button>
+                            <button type="button" class="btn btn-outline-danger mt-2 mr-2" id="cancel_bet">Cancel</button>
                         </form>
+
+                        {% if not g.user.bets%}
+                        <h3 class="display-6 center" id="no_bets">No Bets to display</h3> {% endif%} {% for bet in bets%}
+                        <div class="row border border-rounded mt-2 ">
+                            <div class="col" id="away_team ">{{bet.team_2}}</div>
+                            <div class="col"><b>VS</b></div>
+                            <div class="col" id="home_team ">{{bet.team_1}}</div>
+                            <div class="col">{{bet.result}}</div>
+                        </div>
+                        {% endfor%}
                     </div>
-                    {% for bet in bets%}
-                    <div class="row border border-rounded mt-2">
-                        <div class="col" id="away_team">{{bet.team_2}}</div>
-                        <div class="col"><b>VS</b></div>
-                        <div class="col" id="home_team">{{bet.team_1}}</div>
-                        <div class="col">{{bet.result}}</div>
-                    </div>
-
-                    {% endfor%}
-
-
                 </div>
                 {% endif %}
             </div>

@@ -1,59 +1,61 @@
 var triggerTabList = [].slice.call(document.querySelectorAll("#myTab a"));
-triggerTabList.forEach(function(triggerEl) {
-    var tabTrigger = new bootstrap.Tab(triggerEl);
+triggerTabList.forEach(function (triggerEl) {
+  var tabTrigger = new bootstrap.Tab(triggerEl);
 
-    triggerEl.addEventListener("click", function(event) {
-        event.preventDefault();
-        tabTrigger.show();
-    });
+  triggerEl.addEventListener("click", function (event) {
+    event.preventDefault();
+    tabTrigger.show();
+  });
 });
 
-$(".add_bet").each(function(event) {
-    $(this).on("click", function(event) {
-        event.preventDefault();
+$(".add_bet").each(function (event) {
+  $(this).on("click", function (event) {
+    event.preventDefault();
+    $("#no_bets").hide();
 
-        const betForm = $("#add_bet_form");
-        betForm.show();
-        let team = $(this).parent().prev().prev().text().trim();
-        let team_id = $(this).parent().prev().prev().attr("id");
-        let team_1;
-        let team_2;
+    const team = $(this).parent().prev().prev();
+    console.log(team);
+    const $team = team[0].id;
+    console.log($team);
+    let homeTeam;
+    let awayTeam;
+    if ($team === "away_team") {
+      homeTeam = team.parent().next().children("#home_team").text().trim();
+      console.log(homeTeam);
+      awayTeam = team.text().trim();
+      console.log(awayTeam);
+    } else {
+      homeTeam = team.text().trim();
+      awayTeam = team.parent().prev().children("#away_team").text().trim();
+    }
 
-        if (team_id === "away_team") {
-            team_1 = team;
-            team_2 = $("#home_team").text().trim();
-        } else {
-            team_2 = team;
-            team_1 = $("#away_team").text().trim();
-        }
+    const teamToBet = team.text().trim();
+    const $teamName = $("<b>").attr("class", "team_to_bet").text(teamToBet);
+    const betForm = $("#add_bet_form");
 
-        const selectedBetPrice = $(this).parent().prev().find("b")[0].textContent;
+    betForm.show();
+    const selectedBetPrice = $(this).parent().prev().find("b")[0].textContent;
 
-        const betFormInput = $(".col-xs-1");
-        betForm.before(`<b>${team_1}</b>`);
-        betFormInput.after(`<b>${selectedBetPrice}</b>`);
-        betFormInput.after("<b> X </b>");
+    $("#hidden").val([awayTeam, homeTeam, selectedBetPrice]);
 
-        let betInfo = {
-            team_1: team_1,
-            team_2: team_2,
-        };
+    const betFormInput = $(".col-xs-1");
 
-        let betArray = JSON.stringify(betInfo);
-
-        $.ajax({
-            type: "POST",
-            url: "/add_bet",
-            data: betArray,
-            contentType: "application/json",
-            dataType: "json",
-            success: function(results) {
-                console.log(results.data);
-            },
-        });
-    });
+    betForm.before($teamName);
+    betFormInput.after(
+      `<b id="bet_odds" name=${selectedBetPrice} value=${selectedBetPrice}>${selectedBetPrice}</b>`
+    );
+    betFormInput.after("<b class='X'> X </b>");
+    $(".add_bet").hide();
+  });
 });
 
+$("#cancel_bet").click(function () {
+  $("#add_bet_form").hide();
+  $(".team_to_bet").hide();
+  $("#bet_odds").hide();
+  $(".X").hide();
+  $(".add_bet").show();
+});
 var triggerEl = document.querySelector('#myTab a[href="#profile"]');
 bootstrap.Tab.getInstance(triggerEl).show(); // Select tab by name);
 bootstrap.Tab.getInstance(triggerEl).show(); // Select tab by name

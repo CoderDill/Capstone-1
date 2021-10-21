@@ -1,8 +1,8 @@
 from flask import Flask, request, render_template, redirect, flash, session, jsonify, g
 from flask_debugtoolbar import DebugToolbarExtension
 import requests
-from models import db, connect_db, User, Bet
 from secret import API_KEY
+from models import db, connect_db, User, Bet
 from forms import UserSignInForm, UserSignUpForm, AddBetForm
 from sqlalchemy.exc import IntegrityError
 
@@ -120,7 +120,7 @@ def home_page():
     nfl_response = nfl()
     mlb_response = mlb()
     mma_response = mma()
-
+    print(upcoming_response, nfl_response)
     if g.user:
         user_id = g.user.id
         bets = Bet.query.filter_by(user_id=user_id)
@@ -157,7 +157,7 @@ def logged_in_page():
             return redirect("/")
 
         flash("Invalid credentials.", 'danger')
-    return render_template("home_page.html")
+    return redirect("/")
 
 
 @app.route("/sign_up", methods=["POST"])
@@ -186,26 +186,44 @@ def add_user():
 
 @app.route("/account")
 def accounts():
-    return render_template("account_page.html")
+    user_id = g.user.id
+    user = User.query.get(user_id)
+    print(user)
+    return render_template("account_page.html", user=user)
 
 
 @app.route("/add_bet", methods=["POST"])
 def add_bet():
     form = AddBetForm()
-    print(request.json)
 
     if form.validate_on_submit():
-        user_id = g.user.id
-        team_1 = request.json['team_1']
-        team_2 = request.json['team_2']
-        amt_wagered = request.form["amt_wagered"]
+        try:
+            user_id = g.user.id
+            form_data = request.form['hidden']
 
-        new_bet = Bet(team_1=team_1, team_2=team_2,
-                      amt_wagered=amt_wagered, user_id=user_id)
-        db.session.add(new_bet)
-        db.session.commit()
-        return redirect("/")
+            bet_data = form_data.split(',')
+            amt_wagered = request.form["amt_wagered"]
 
+            # x = amt_wagered * odds
+            bet_odds = bet_data[2]
+            pos_win = (bet_odds * amt_wagered) + amt_wagered
+            print(pos_win)
+
+            new_bet = Bet(team_1=bet_data[0], team_2=bet_data[1],
+                          amt_wagered=amt_wagered, user_id=user_id)
+
+            user = User.query.get(user_id)
+            print(user)
+            user.balance = user.balance - amt_wagered
+            print(user)
+            db.session.add_all(new_bet, user)
+            db.session.commit()
+
+            return redirect("/")
+        except:
+            print(request.data)
+            flash("Bet Failed", 'danger')
+            redirect("/")
     return redirect("/")
 
 
