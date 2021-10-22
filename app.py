@@ -204,7 +204,6 @@ def add_bet():
             bet_data = form_data.split(',')
             amt_wagered = request.form["amt_wagered"]
 
-            # x = amt_wagered * odds
             bet_odds = bet_data[2]
             pos_win = (bet_odds * amt_wagered) + amt_wagered
             print(pos_win)
