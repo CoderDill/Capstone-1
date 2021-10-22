@@ -35,7 +35,7 @@ class User(db.Model):
     username = db.Column(db.String(20), nullable=False, unique=True)
     password = db.Column(db.Text, nullable=False)
     email = db.Column(db.Text, nullable=False, unique=True)
-    balance = db.Column(db.Integer, nullable=False, default=1000)
+    balance = db.Column(db.Float, nullable=False, default=1000.00)
 
 
 class Bet(db.Model):

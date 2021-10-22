@@ -196,43 +196,30 @@ def accounts():
 def add_bet():
     form = AddBetForm()
     print(f"-----------------{form.data}")
+    if form.validate_on_submit():
+        form_data = request.form['hidden']
+        bet_data = form_data.split(',')
+        amt_wagered = "{:.2f}".format(float(request.form["amt_wagered"]))
+        bet_odds = bet_data[2]
+        float_bet_odds = float(bet_odds)
+        float_amt_wagered = float(amt_wagered)
+        pos_win = ((float_bet_odds * float_amt_wagered) + float_amt_wagered)
+        user_id = g.user.id
+
+        new_bet = Bet(team_1=bet_data[0], team_2=bet_data[1],
+                      amt_wagered=amt_wagered, pos_win=pos_win, user_id=user_id)
+
+        user = User.query.get(user_id)
+        user.balance = user.balance - float_amt_wagered
+
+        db.session.add(new_bet)
+        db.session.commit()
+
+        return redirect("/")
     return redirect("/")
-# @app.route("/add_bet", methods=["POST"])
-# def add_bet():
-#     form = AddBetForm()
-
-#     if form.validate_on_submit():
-#         try:
-#             user_id = g.user.id
-#             form_data = request.form['hidden']
-
-#             bet_data = form_data.split(',')
-#             amt_wagered = request.form["amt_wagered"]
-
-#             # x = amt_wagered * odds
-#             bet_odds = bet_data[2]
-#             pos_win = (bet_odds * amt_wagered) + amt_wagered
-#             print(pos_win)
-
-#             new_bet = Bet(team_1=bet_data[0], team_2=bet_data[1],
-#                           amt_wagered=amt_wagered, user_id=user_id)
-
-#             user = User.query.get(user_id)
-#             print(user)
-#             user.balance = user.balance - amt_wagered
-#             print(user)
-#             db.session.add_all(new_bet, user)
-#             db.session.commit()
-
-#             return redirect("/")
-#         except:
-#             print(request.data)
-#             flash("Bet Failed", 'danger')
-#             redirect("/")
-#     return redirect("/")
 
 
-@app.route("/logout")
+@ app.route("/logout")
 def logout():
     session.pop("curr_user")
     do_logout()

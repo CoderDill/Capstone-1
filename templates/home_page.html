@@ -203,20 +203,24 @@
                                     id="cancel_bet">Cancel</button>
                             </div>
                         </form> -->
-                        <form action="/add_bet" method="POST" action="/login">
+                        <form action="/add_bet" method="POST" id="add_bet_form" action="/login" style="display: none">
                             {{ form_add_bet.hidden_tag() }}
                             {% for field in form_add_bet if field.widget.input_type != 'hidden'%}
-                                <p></p>
+                                <p>
+                                    {{field.label}}
+                                    {{field}}
+                                </p>
                             {% endfor%}
+                            <button>bet</button>
                         </form>
                         {% if not g.user.bets%}
                         <h3 class="display-6 text-center" id="no_bets">Make a bet</h3> {% endif%}
                         {% for bet in bets%}
                         <div class="row border border-rounded mt-2">
                             <div class="col" id="away_team">{{bet.team_2}}</div>
-                            <div class="col border"><b>VS</b></div>
+                            <div class="col"><b>VS</b></div>
                             <div class="col" id="home_team">{{bet.team_1}}</div>
-                            <div class="col border">{{bet.pos_win}}</div>
+                            <div class="col">{{bet.pos_win}}</div>
                             <div class="col">{{bet.result}}</div>
                         </div>
                         {% endfor %}
