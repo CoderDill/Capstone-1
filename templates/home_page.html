@@ -18,24 +18,27 @@
             <div class="col-8">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="upcoming-tab" data-toggle="tab" href="#upcoming" role="tab" aria-controls="upcoming" aria-selected="true">Upcoming</a>
+                        <a class="nav-link active" id="upcoming-tab" data-toggle="tab" href="#upcoming" role="tab"
+                            aria-controls="upcoming" aria-selected="true">Upcoming</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="nfl-tab" data-toggle="tab" href="#nfl" role="tab" aria-controls="nfl" aria-selected="false">NFL</a>
+                        <a class="nav-link" id="nfl-tab" data-toggle="tab" href="#nfl" role="tab" aria-controls="nfl"
+                            aria-selected="false">NFL</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="mlb-tab" data-toggle="tab" href="#mlb" role="tab" aria-controls="mlb" aria-selected="false">MLB</a>
+                        <a class="nav-link" id="mlb-tab" data-toggle="tab" href="#mlb" role="tab" aria-controls="mlb"
+                            aria-selected="false">MLB</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="mma-tab" data-toggle="tab" href="#mma" role="tab" aria-controls="mma" aria-selected="false">MMA</a>
+                        <a class="nav-link" id="mma-tab" data-toggle="tab" href="#mma" role="tab" aria-controls="mma"
+                            aria-selected="false">MMA</a>
                     </li>
                 </ul>
-
-
                 <div class="tab-content">
                     <div class="tab-pane active" id="upcoming" role="tabpanel" aria-labelledby="upcoming-tab">
                         <div class="container mt-2">
-                            {% for game in upcoming_response.data[:10]%} {% if game['sport_key'] == 'baseball_mlb' or game['sport_key'] == 'mma_mixed_martial_arts' or game['sport_key'] == 'americanfootball_nfl'%}
+                            {% for game in upcoming_response.data[:10]%}
+                            {% if game['sport_key'] == 'baseball_mlb' or game['sport_key'] == 'mma_mixed_martial_arts' or game['sport_key'] == 'americanfootball_nfl'%}
                             <h4>{{game.sport_nice}}</h4>
                             <div class="row align-items-center justify-content-between border border-rounded p-2">
                                 <div class="col-4" id="away_team">
@@ -45,10 +48,10 @@
                                     <b>{{game['sites'][0]['odds']['h2h'][0]}}</b>
                                 </div>
                                 <div class="col-1">
-                                    <a class="add_bet" href="" style="color: rgb(2, 117, 216)"><i class="far fa-plus-square fa-lg"></i></a>
+                                    <a class="add_bet" href="" style="color: rgb(2, 117, 216)"><i
+                                            class="far fa-plus-square fa-lg"></i></a>
                                 </div>
                             </div>
-
                             <div class="row align-items-center justify-content-between border border-rounded p-2">
                                 <div class="col-4" id="home_team">
                                     {{game['teams'][1]}}
@@ -57,7 +60,8 @@
                                     <b>{{game['sites'][0]['odds']['h2h'][1]}}</b>
                                 </div>
                                 <div class="col-1">
-                                    <a class="add_bet" href="" style="color: rgb(2, 117, 216)"><i class="far fa-plus-square fa-lg"></i></a>
+                                    <a class="add_bet" href="" style="color: rgb(2, 117, 216)"><i
+                                            class="far fa-plus-square fa-lg"></i></a>
                                 </div>
                             </div>
                             <br> {%endif%} {% endfor %}
@@ -74,7 +78,8 @@
                                     <b>{{game['sites'][0]['odds']['h2h'][0]}}</b>
                                 </div>
                                 <div class="col-1">
-                                    <a class="add_bet" href="" style="color: rgb(2, 117, 216)"><i class="far fa-plus-square fa-lg"></i></a>
+                                    <a class="add_bet" href="" style="color: rgb(2, 117, 216)"><i
+                                            class="far fa-plus-square fa-lg"></i></a>
                                 </div>
                             </div>
 
@@ -86,7 +91,8 @@
                                     <b>{{game['sites'][0]['odds']['h2h'][1]}}</b>
                                 </div>
                                 <div class="col-1">
-                                    <a class="add_bet" href="" style="color: rgb(2, 117, 216)"><i class="far fa-plus-square fa-lg"></i></a>
+                                    <a class="add_bet" href="" style="color: rgb(2, 117, 216)"><i
+                                            class="far fa-plus-square fa-lg"></i></a>
                                 </div>
                             </div>
                             <br> {% endfor %}
@@ -103,7 +109,8 @@
                                     <b>{{game['sites'][0]['odds']['h2h'][0]}}</b>
                                 </div>
                                 <div class="col-1">
-                                    <a class="add_bet" href="" style="color: rgb(2, 117, 216)"><i class="far fa-plus-square fa-lg"></i></a>
+                                    <a class="add_bet" href="" style="color: rgb(2, 117, 216)"><i
+                                            class="far fa-plus-square fa-lg"></i></a>
                                 </div>
                             </div>
 
@@ -115,7 +122,8 @@
                                     <b>{{game['sites'][0]['odds']['h2h'][1]}}</b>
                                 </div>
                                 <div class="col-1">
-                                    <a class="add_bet" href="" style="color: rgb(2, 117, 216)"><i class="far fa-plus-square fa-lg"></i></a>
+                                    <a class="add_bet" href="" style="color: rgb(2, 117, 216)"><i
+                                            class="far fa-plus-square fa-lg"></i></a>
                                 </div>
                             </div>
                             <br> {% endfor %}
@@ -132,7 +140,8 @@
                                     <b>{{game['sites'][0]['odds']['h2h'][0]}}</b>
                                 </div>
                                 <div class="col-1">
-                                    <a class="add_bet" href="" style="color: rgb(2, 117, 216)"><i class="far fa-plus-square fa-lg"></i></a>
+                                    <a class="add_bet" href="" style="color: rgb(2, 117, 216)"><i
+                                            class="far fa-plus-square fa-lg"></i></a>
                                 </div>
                             </div>
 
@@ -144,7 +153,8 @@
                                     <b>{{game['sites'][0]['odds']['h2h'][1]}}</b>
                                 </div>
                                 <div class="col-1">
-                                    <a class="add_bet" href="" style="color: rgb(2, 117, 216)"><i class="far fa-plus-square fa-lg"></i></a>
+                                    <a class="add_bet" href="" style="color: rgb(2, 117, 216)"><i
+                                            class="far fa-plus-square fa-lg"></i></a>
                                 </div>
                             </div>
                             <br> {% endfor %}
@@ -156,16 +166,22 @@
                 {% if not g.user%}
                 <h4 class="display-6">Sign In</h4>
                 <form action="/sign_in" method="POST" id="sign_in_form">
-                    {{ form_sign_in.hidden_tag() }} {% for field in form_sign_in if field.widget.input_type != 'hidden'%} {% for error in field.errors %}
-                    <span class="text-danger">{{ error }}</span> {% endfor %} {{ field(placeholder=field.label.text, class="form-control") }} {% endfor %}
+                    {{ form_sign_in.hidden_tag() }}
+                    {% for field in form_sign_in if field.widget.input_type != 'hidden'%}
+                    {% for error in field.errors %}
+                    <span class="text-danger">{{ error }}</span> {% endfor %}
+                    {{ field(placeholder=field.label.text, class="form-control") }} {% endfor %}
 
                     <button class="btn btn-outline-primary btn-block">Sign In</button>
                 </form>
 
                 <h4 class="display-6 mt-2">Sign Up</h4>
                 <form action="/sign_up" method="POST" id="sign_up_form">
-                    {{ form_sign_up.hidden_tag() }} {% for field in form_sign_up if field.widget.input_type != 'hidden'%} {% for error in field.errors %}
-                    <span class="text-danger">{{ error }}</span> {% endfor %} {{ field(placeholder=field.label.text, class="form-control") }} {% endfor %}
+                    {{ form_sign_up.hidden_tag() }}
+                    {% for field in form_sign_up if field.widget.input_type != 'hidden'%}
+                    {% for error in field.errors %}
+                    <span class="text-danger">{{ error }}</span> {% endfor %}
+                    {{ field(placeholder=field.label.text, class="form-control") }} {% endfor %}
 
                     <button class="btn btn-outline-primary btn-block">Sign Up</button>
                 </form>
@@ -175,29 +191,43 @@
                         <h4 class="display-6" id="curr_user">{{g.user.username}}'s Bets</h4>
                     </div>
                     <div class="row" id="bets">
-
-                        <form action="/add_bet" class="mt-2" id="add_bet_form" method="POST" style="display: none">
-                            {{ form_add_bet.hidden_tag() }} {% for field in form_add_bet if field.widget.input_type != 'hidden'%} {% for error in field.errors%}
-                            <span class="text-danger">{{ error }}</span> {%endfor%} {{ field(placeholder=field.label.text, class="col-xs-1") }}{%endfor%}
-
-                            <button class="btn btn-outline-primary mt-2" id="submit_bet">Submit</button>
-                            <button type="button" class="btn btn-outline-danger mt-2 mr-2" id="cancel_bet">Cancel</button>
+                        <!-- <form action="/add_bet" class="mt-2" id="add_bet_form" method="POST" style="display: none">
+                            {{ form_add_bet.hidden_tag() }}
+                            {% for field in form_add_bet if field.widget.input_type != 'hidden'%}
+                            {% for error in field.errors%}
+                            <span class="text-danger">{{ error }}</span> {%endfor%}
+                            {{ field(placeholder=field.label.text, class="col-xs-1") }}{%endfor%}
+                            <div class="container">
+                                <button class="btn btn-outline-primary mt-2" id="submit_bet">Submit</button>
+                                <button type="button" class="btn btn-outline-danger mt-2 mr-2"
+                                    id="cancel_bet">Cancel</button>
+                            </div>
+                        </form> -->
+                        <form action="/add_bet" method="POST" id="add_bet_form" action="/login" style="display: none">
+                            {{ form_add_bet.hidden_tag() }}
+                            {% for field in form_add_bet if field.widget.input_type != 'hidden'%}
+                                <p>
+                                    {{field.label}}
+                                    {{field}}
+                                </p>
+                            {% endfor%}
+                            <button>bet</button>
                         </form>
-
                         {% if not g.user.bets%}
-                        <h3 class="display-6 center" id="no_bets">No Bets to display</h3> {% endif%} {% for bet in bets%}
-                        <div class="row border border-rounded mt-2 ">
-                            <div class="col" id="away_team ">{{bet.team_2}}</div>
+                        <h3 class="display-6 text-center" id="no_bets">Make a bet</h3> {% endif%}
+                        {% for bet in bets%}
+                        <div class="row border border-rounded mt-2">
+                            <div class="col" id="away_team">{{bet.team_2}}</div>
                             <div class="col"><b>VS</b></div>
-                            <div class="col" id="home_team ">{{bet.team_1}}</div>
+                            <div class="col" id="home_team">{{bet.team_1}}</div>
+                            <div class="col">{{bet.pos_win}}</div>
                             <div class="col">{{bet.result}}</div>
                         </div>
-                        {% endfor%}
+                        {% endfor %}
                     </div>
                 </div>
                 {% endif %}
             </div>
-
         </div>
     </div>
 </div>
