@@ -181,7 +181,8 @@ def add_user():
         do_login(new_user)
         return redirect("/")
     else:
-        return render_template("homepage.html")
+        flash("Information already taken", 'danger')
+        return redirect("/")
 
 
 @app.route("/account")
