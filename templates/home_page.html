@@ -191,19 +191,26 @@
                         <h4 class="display-6" id="curr_user">{{g.user.username}}'s Bets</h4>
                     </div>
                     <div class="row" id="bets">
-                        <form action="/add_bet" class="mt-2" id="add_bet_form" method="POST" style="display: none">
+                        <!-- <form action="/add_bet" class="mt-2" id="add_bet_form" method="POST" style="display: none">
                             {{ form_add_bet.hidden_tag() }}
                             {% for field in form_add_bet if field.widget.input_type != 'hidden'%}
                             {% for error in field.errors%}
                             <span class="text-danger">{{ error }}</span> {%endfor%}
                             {{ field(placeholder=field.label.text, class="col-xs-1") }}{%endfor%}
-
-                            <button class="btn btn-outline-primary mt-2" id="submit_bet">Submit</button>
-                            <button type="button" class="btn btn-outline-danger mt-2 mr-2"
-                                id="cancel_bet">Cancel</button>
+                            <div class="container">
+                                <button class="btn btn-outline-primary mt-2" id="submit_bet">Submit</button>
+                                <button type="button" class="btn btn-outline-danger mt-2 mr-2"
+                                    id="cancel_bet">Cancel</button>
+                            </div>
+                        </form> -->
+                        <form action="/add_bet" method="POST" action="/login">
+                            {{ form_add_bet.hidden_tag() }}
+                            {% for field in form_add_bet if field.widget.input_type != 'hidden'%}
+                                <p></p>
+                            {% endfor%}
                         </form>
                         {% if not g.user.bets%}
-                        <h3 class="display-6 center" id="no_bets">No Bets to display</h3> {% endif%}
+                        <h3 class="display-6 text-center" id="no_bets">Make a bet</h3> {% endif%}
                         {% for bet in bets%}
                         <div class="row border border-rounded mt-2">
                             <div class="col" id="away_team">{{bet.team_2}}</div>

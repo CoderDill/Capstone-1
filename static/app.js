@@ -56,6 +56,5 @@ $("#cancel_bet").click(function () {
   $(".X").hide();
   $(".add_bet").show();
 });
-var triggerEl = document.querySelector('#myTab a[href="#profile"]');
+var triggerEl = document.querySelector('#myTab a[href="#upcoming"]');
 bootstrap.Tab.getInstance(triggerEl).show(); // Select tab by name);
-bootstrap.Tab.getInstance(triggerEl).show(); // Select tab by name

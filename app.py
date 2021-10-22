@@ -195,36 +195,41 @@ def accounts():
 @app.route("/add_bet", methods=["POST"])
 def add_bet():
     form = AddBetForm()
-
-    if form.validate_on_submit():
-        try:
-            user_id = g.user.id
-            form_data = request.form['hidden']
-
-            bet_data = form_data.split(',')
-            amt_wagered = request.form["amt_wagered"]
-
-            # x = amt_wagered * odds
-            bet_odds = bet_data[2]
-            pos_win = (bet_odds * amt_wagered) + amt_wagered
-            print(pos_win)
-
-            new_bet = Bet(team_1=bet_data[0], team_2=bet_data[1],
-                          amt_wagered=amt_wagered, user_id=user_id)
-
-            user = User.query.get(user_id)
-            print(user)
-            user.balance = user.balance - amt_wagered
-            print(user)
-            db.session.add_all(new_bet, user)
-            db.session.commit()
-
-            return redirect("/")
-        except:
-            print(request.data)
-            flash("Bet Failed", 'danger')
-            redirect("/")
+    print(f"-----------------{form.data}")
     return redirect("/")
+# @app.route("/add_bet", methods=["POST"])
+# def add_bet():
+#     form = AddBetForm()
+
+#     if form.validate_on_submit():
+#         try:
+#             user_id = g.user.id
+#             form_data = request.form['hidden']
+
+#             bet_data = form_data.split(',')
+#             amt_wagered = request.form["amt_wagered"]
+
+#             # x = amt_wagered * odds
+#             bet_odds = bet_data[2]
+#             pos_win = (bet_odds * amt_wagered) + amt_wagered
+#             print(pos_win)
+
+#             new_bet = Bet(team_1=bet_data[0], team_2=bet_data[1],
+#                           amt_wagered=amt_wagered, user_id=user_id)
+
+#             user = User.query.get(user_id)
+#             print(user)
+#             user.balance = user.balance - amt_wagered
+#             print(user)
+#             db.session.add_all(new_bet, user)
+#             db.session.commit()
+
+#             return redirect("/")
+#         except:
+#             print(request.data)
+#             flash("Bet Failed", 'danger')
+#             redirect("/")
+#     return redirect("/")
 
 
 @app.route("/logout")
