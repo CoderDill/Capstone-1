@@ -7,7 +7,7 @@ from sqlalchemy.exc import IntegrityError
 import os
 
 
-API_KEY = os.environ('API_KEY')
+API_KEY = os.environ.get('API_KEY')
 
 CURR_USER_KEY = "curr_user"
 
