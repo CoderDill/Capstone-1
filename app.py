@@ -5,6 +5,9 @@ from models import db, connect_db, User, Bet
 from forms import UserSignInForm, UserSignUpForm, AddBetForm
 from sqlalchemy.exc import IntegrityError
 import os
+import boto
+
+conn = boto.connect_s3()
 
 CURR_USER_KEY = "curr_user"
 
@@ -14,7 +17,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
     'DATABASE_URL', 'postgresql:///crappysports_db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
-app.config['SECRET_KEY'] = API_KEY
+app.config['SECRET_KEY'] = os.environ("API_KEY")
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
 connect_db(app)
