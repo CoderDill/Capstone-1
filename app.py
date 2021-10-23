@@ -4,10 +4,11 @@ import requests
 from models import db, connect_db, User, Bet
 from forms import UserSignInForm, UserSignUpForm, AddBetForm
 from sqlalchemy.exc import IntegrityError
+from secret import API_KEY
 import os
 
 
-API_KEY = os.environ.get('API_KEY')
+API_KEY = os.environ.get('API_KEY', API_KEY)
 
 CURR_USER_KEY = "curr_user"
 
