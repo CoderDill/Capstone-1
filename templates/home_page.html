@@ -37,6 +37,9 @@
                 <div class="tab-content">
                     <div class="tab-pane active" id="upcoming" role="tabpanel" aria-labelledby="upcoming-tab">
                         <div class="container mt-2">
+                            {% if upcoming_response.data == []%}
+                                <h1 class="display-2 font-weight-bold">No bets at this time</h1>
+                            {% else %}
                             {% for game in upcoming_response.data[:10]%}
                             {% if game['sport_key'] == 'baseball_mlb' or game['sport_key'] == 'mma_mixed_martial_arts' or game['sport_key'] == 'americanfootball_nfl'%}
                             <h4>{{game.sport_nice}}</h4>
@@ -64,7 +67,7 @@
                                             class="far fa-plus-square fa-lg"></i></a>
                                 </div>
                             </div>
-                            <br> {%endif%} {% endfor %}
+                            <br> {%endif%} {% endfor %}{% endif%}
                         </div>
                     </div>
                     <div class="tab-pane" id="nfl" role="tabpanel" aria-labelledby="nfl-tab">

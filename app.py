@@ -124,7 +124,7 @@ def home_page():
     nfl_response = nfl()
     mlb_response = mlb()
     mma_response = mma()
-    print(upcoming_response, nfl_response)
+    
     if g.user:
         user_id = g.user.id
         bets = Bet.query.filter_by(user_id=user_id)
