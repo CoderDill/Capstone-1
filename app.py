@@ -200,7 +200,7 @@ def accounts():
 @app.route("/add_bet", methods=["POST"])
 def add_bet():
     form = AddBetForm()
-    print(f"-----------------{form.data}")
+
     if form.validate_on_submit():
         form_data = request.form['hidden']
         bet_data = form_data.split(',')
@@ -210,8 +210,8 @@ def add_bet():
         float_amt_wagered = float(amt_wagered)
         pos_win = ((float_bet_odds * float_amt_wagered) + float_amt_wagered)
         user_id = g.user.id
-
-        new_bet = Bet(team_1=bet_data[0], team_2=bet_data[1],
+                
+        new_bet = Bet(name=bet_data[3], team_1=bet_data[0], team_2=bet_data[1],
                       amt_wagered=amt_wagered, pos_win=pos_win, user_id=user_id)
 
         user = User.query.get(user_id)

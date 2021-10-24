@@ -9,10 +9,10 @@ u1 = User.register(username='TestUser', pwd='CoolBeans',
 u2 = User.register(username='JohnSmith', pwd='HotBeans',
                    email="hotbeans@test.com")
 
-b1 = Bet(team_1="Miami Dolphins", team_2="Arizona Cardinals",
+b1 = Bet(name="Miami Dolphins", team_1="Miami Dolphins", team_2="Arizona Cardinals",
          amt_wagered="100.00",  pos_win="210.00", result="won", amt_paid="210.00", user_id=1)
 
-b2 = Bet(team_1="Miami Dolphins", team_2="Arizona Cardinals",
+b2 = Bet(name="Miami Dolphins", team_1="Miami Dolphins", team_2="Arizona Cardinals",
          amt_wagered="100.00", pos_win="300.00", user_id=1)
 
 db.session.add_all([u1, u2, b1, b2])

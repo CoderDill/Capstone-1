@@ -194,34 +194,34 @@
                         <form action="/add_bet" method="POST" id="add_bet_form" action="/login" style="display: none">
                             {{ form_add_bet.hidden_tag() }}
                             {% for field in form_add_bet if field.widget.input_type != 'hidden'%}
-                                <p>
-                                    {{field.label}}
-                                    {{field}}
-                                </p>
+                            <p>
+                                {{field.label}}
+                                {{field}}
+                            </p>
                             {% endfor%}
                             <button class="btn btn-outline-primary mt-1">Add Bet</button>
                             <button type="button" class="btn btn-outline-danger mt-1 mr-2"
-                                    id="cancel_bet">Cancel</button>
+                                id="cancel_bet">Cancel</button>
                         </form>
                         {% if not g.user.bets%}
                         <h3 class="display-6 text-center" id="no_bets">Make a bet</h3> {% endif%}
-                        {% for bet in bets%}
-                        <div class="row border border-rounded mt-2">
-                            <div class="col" id="away_team">{{bet.team_2}}</div>
-                            <div class="col"><b>VS</b></div>
-                            <div class="col" id="home_team">{{bet.team_1}}</div>
-                            <div class="col">
-                                <div class="row">
-                                    Payout
-                                </div>
-                                <div class="row">
-                                {{bet.pos_win}}
-
-                                </div>
+                        <ol>
+                            {% for bet in bets%}
+                            <div class="row">
+                                <li>
+                                    <div class="row">Bet ${{bet.amt_wagered}} to win {{bet.pos_win}}</div>
+                                    <div class="row">
+                                        <div class="col-9">
+                                            {{bet.team_1}} vs. {{bet.team_2}}
+                                        </div>
+                                        <div class="col-3">
+                                            <b>Result: </b>{{bet.result}}
+                                        </div>
+                                    </div>
+                                </li>
                             </div>
-                            <div class="col">{{bet.result}}</div>
-                        </div>
-                        {% endfor %}
+                            {% endfor %}
+                        </ol>
                     </div>
                 </div>
                 {% endif %}
