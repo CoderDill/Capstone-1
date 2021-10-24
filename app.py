@@ -4,6 +4,7 @@ import requests
 from models import db, connect_db, User, Bet
 from forms import UserSignInForm, UserSignUpForm, AddBetForm
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy import desc
 from secret import API_KEY
 import os
 
@@ -127,8 +128,7 @@ def home_page():
     
     if g.user:
         user_id = g.user.id
-        bets = Bet.query.filter_by(user_id=user_id)
-
+        bets = Bet.query.filter_by(user_id=user_id).order_by(Bet.id.desc())
         return render_template("home_page.html",
                                upcoming_response=upcoming_response.json(),
                                nfl_response=nfl_response.json(),
@@ -210,7 +210,7 @@ def add_bet():
         float_amt_wagered = float(amt_wagered)
         pos_win = ((float_bet_odds * float_amt_wagered) + float_amt_wagered)
         user_id = g.user.id
-        
+
         new_bet = Bet(name=bet_data[3], team_1=bet_data[0], team_2=bet_data[1],
                       amt_wagered=amt_wagered, pos_win=pos_win, user_id=user_id)
 
@@ -224,7 +224,7 @@ def add_bet():
     return redirect("/")
 
 
-@ app.route("/logout")
+@app.route("/logout")
 def logout():
     session.pop("curr_user")
     do_logout()

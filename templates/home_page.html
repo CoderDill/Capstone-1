@@ -208,10 +208,11 @@
                         </form>
                         {% if not g.user.bets%}
                         <h3 class="display-6 text-center" id="no_bets">Make a bet</h3> {% endif%}
-                        <ol>
-                            {% for bet in bets%}
+                        <ul class="list-group">
+                            {% for bet in bets[:10]%}
                             <div class="row">
-                                <li>
+                                <div class="col">
+                                    <li class="list-group-item">
                                     Bet ${{bet.amt_wagered}} to win ${{bet.pos_win}} on <b>{{bet.name}}</b>
                                     <div class="row">
                                         <div class="col">
@@ -222,9 +223,10 @@
                                         </div>
                                     </div>
                                 </li>
+                                </div>                                
                             </div>
                             {% endfor %}
-                        </ol>
+                        </ul>
                     </div>
                 </div>
                 {% endif %}
@@ -232,5 +234,9 @@
         </div>
     </div>
 </div>
+
+</div>
+<div class="navbar navbar-fixed-bottom bg-secondary p-2 text-center">
+    CrappySports created by Matthew Dillon
 </div>
 {% endblock %}

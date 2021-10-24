@@ -49,6 +49,17 @@ $(".add_bet").each(function (event) {
   });
 });
 
+function randWin() {
+  if (Math.random() < .5) {
+    
+  }
+}
+
+$("#add_bet_form").submit(() => {
+  setTimeout(() => {
+    randWin()
+  }, 259200000);
+
 $("#cancel_bet").click(function () {
   $("#add_bet_form").hide();
   $(".team_to_bet").hide();
