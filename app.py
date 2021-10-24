@@ -1,11 +1,13 @@
 from flask import Flask, request, render_template, redirect, flash, session, jsonify, g
 from flask_debugtoolbar import DebugToolbarExtension
 import requests
+import random
 from models import db, connect_db, User, Bet
 from forms import UserSignInForm, UserSignUpForm, AddBetForm
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import desc
 from secret import API_KEY
+from threading import Timer
 import os
 
 
@@ -125,7 +127,7 @@ def home_page():
     nfl_response = nfl()
     mlb_response = mlb()
     mma_response = mma()
-    
+
     if g.user:
         user_id = g.user.id
         bets = Bet.query.filter_by(user_id=user_id).order_by(Bet.id.desc())
@@ -218,6 +220,23 @@ def add_bet():
         user.balance = user.balance - float_amt_wagered
 
         db.session.add(new_bet)
+
+        # def randWin():
+        #     print("called randWin")
+            
+        if bool(random.getrandbits(1)):
+            print("true")
+            new_bet.result = 'won'
+            user.balance = user.balance + pos_win
+            db.session.commit()
+        else:
+            print("false")
+            new_bet.result = 'lost'
+            db.session.commit()
+        # t = Timer(10, randWin)
+        # t.start()
+        # Math.Random < .5 ? new_bet.result = 'won' : new_bet.result = 'lose'
+
         db.session.commit()
 
         return redirect("/")
