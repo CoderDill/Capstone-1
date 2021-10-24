@@ -36,7 +36,7 @@ $(".add_bet").each(function (event) {
     betForm.show();
     const selectedBetPrice = $(this).parent().prev().find("b")[0].textContent;
 
-    $("#hidden").val([awayTeam, homeTeam, selectedBetPrice]);
+    $("#hidden").val([awayTeam, homeTeam, selectedBetPrice, teamToBet]);
 
     const betFormInput = $(".col-xs-1");
 

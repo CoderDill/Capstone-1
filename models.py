@@ -45,8 +45,9 @@ class Bet(db.Model):
     __tablename__ = "bets"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    team_1 = db.Column(db.String(20), nullable=False)
-    team_2 = db.Column(db.String(20), nullable=False)
+    name = db.Column(db.String(50), nullable=False)
+    team_1 = db.Column(db.String(50), nullable=False)
+    team_2 = db.Column(db.String(50), nullable=False)
     amt_wagered = db.Column(db.Float, nullable=False)
     pos_win = db.Column(db.Float, nullable=False)
     result = db.Column(db.String(10), nullable=False, default="pending")

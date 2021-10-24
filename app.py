@@ -1,17 +1,21 @@
 from flask import Flask, request, render_template, redirect, flash, session, jsonify, g
 from flask_debugtoolbar import DebugToolbarExtension
 import requests
-from secret import API_KEY
 from models import db, connect_db, User, Bet
 from forms import UserSignInForm, UserSignUpForm, AddBetForm
 from sqlalchemy.exc import IntegrityError
+from secret import API_KEY
+import os
 
+
+API_KEY = os.environ.get('API_KEY', API_KEY)
 
 CURR_USER_KEY = "curr_user"
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///crappysports_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
+    'DATABASE_URL', 'postgresql:///crappysports_db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 app.config['SECRET_KEY'] = API_KEY
@@ -196,7 +200,7 @@ def accounts():
 @app.route("/add_bet", methods=["POST"])
 def add_bet():
     form = AddBetForm()
-    print(f"-----------------{form.data}")
+
     if form.validate_on_submit():
         form_data = request.form['hidden']
         bet_data = form_data.split(',')
@@ -206,8 +210,8 @@ def add_bet():
         float_amt_wagered = float(amt_wagered)
         pos_win = ((float_bet_odds * float_amt_wagered) + float_amt_wagered)
         user_id = g.user.id
-
-        new_bet = Bet(team_1=bet_data[0], team_2=bet_data[1],
+        
+        new_bet = Bet(name=bet_data[3], team_1=bet_data[0], team_2=bet_data[1],
                       amt_wagered=amt_wagered, pos_win=pos_win, user_id=user_id)
 
         user = User.query.get(user_id)
