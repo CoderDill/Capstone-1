@@ -220,7 +220,7 @@ def add_bet():
     return redirect("/")
 
 
-@ app.route("/logout")
+@app.route("/logout")
 def logout():
     session.pop("curr_user")
     do_logout()
