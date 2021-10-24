@@ -15,7 +15,7 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-8">
+            <div class="col-7">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="upcoming-tab" data-toggle="tab" href="#upcoming" role="tab"
@@ -162,7 +162,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-5">
                 {% if not g.user%}
                 <h4 class="display-6">Sign In</h4>
                 <form action="/sign_in" method="POST" id="sign_in_form">
@@ -209,12 +209,12 @@
                             {% for bet in bets%}
                             <div class="row">
                                 <li>
-                                    <div class="row">Bet ${{bet.amt_wagered}} to win {{bet.pos_win}}</div>
+                                    Bet ${{bet.amt_wagered}} to win ${{bet.pos_win}} on <b>{{bet.name}}</b>
                                     <div class="row">
-                                        <div class="col-9">
+                                        <div class="col">
                                             {{bet.team_1}} vs. {{bet.team_2}}
                                         </div>
-                                        <div class="col-3">
+                                        <div class="col">
                                             <b>Result: </b>{{bet.result}}
                                         </div>
                                     </div>
