@@ -66,18 +66,18 @@ const nfl = $("#nfl");
 const mlb = $("#mlb");
 const mma = $("#mma");
 
-console.log(upcoming, nfl, mlb, mma)
-if (upcoming.children().text().trim() == '') {
-  upcoming.prepend("No bets at this time.");
+console.log(upcoming, nfl, mlb, mma);
+if (upcoming.children().text().trim() == "") {
+  upcoming.prepend("<h1 class='font-weight-bold m-2'>No bets at this time.</h1>");
 }
-if (nfl.children().text().trim() == '') {
-  nfl.prepend("No bets at this time.");
+if (nfl.children().text().trim() == "") {
+  nfl.prepend("<h1 class='font-weight-bold m-2'>No bets at this time.</h1>");
 }
-if (mlb.children().text().trim() == '') {
-  mlb.prepend("No bets at this time.");
+if (mlb.children().text().trim() == "") {
+  mlb.prepend("<h1 class='font-weight-bold m-2'>No bets at this time.</h1>");
 }
 if (mma.children().text().trim() == "") {
-  mma.prepend("No bets at this time.");
+  mma.prepend("<h1 class='font-weight-bold m-2'>No bets at this time.</h1>");
 }
 
 $("#cancel_bet").click(function () {
