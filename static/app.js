@@ -68,16 +68,16 @@ const mma = $("#mma");
 
 console.log(upcoming, nfl, mlb, mma);
 if (upcoming.children().text().trim() == "") {
-  upcoming.prepend("<h1 class='font-weight-bold m-2'>No bets at this time.</h1>");
+  upcoming.prepend("<h1 class='font-weight-bold m-2'>No upcoming bets at this time.</h1>");
 }
 if (nfl.children().text().trim() == "") {
-  nfl.prepend("<h1 class='font-weight-bold m-2'>No bets at this time.</h1>");
+  nfl.prepend("<h1 class='font-weight-bold m-2'>No NFL bets at this time.</h1>");
 }
 if (mlb.children().text().trim() == "") {
-  mlb.prepend("<h1 class='font-weight-bold m-2'>No bets at this time.</h1>");
+  mlb.prepend("<h1 class='font-weight-bold m-2'>No MLB bets at this time.</h1>");
 }
 if (mma.children().text().trim() == "") {
-  mma.prepend("<h1 class='font-weight-bold m-2'>No bets at this time.</h1>");
+  mma.prepend("<h1 class='font-weight-bold m-2'>No MMA bets at this time.</h1>");
 }
 
 $("#cancel_bet").click(function () {
