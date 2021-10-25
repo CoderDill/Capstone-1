@@ -74,12 +74,12 @@
             aria-labelledby="upcoming-tab"
           >
             <div class="container mt-2">
-              {% if upcoming_response.data.length == 0 %}
-              <h1 class="display-2 font-weight-bold">No bets at this time</h1>
-              {% else %} {% for game in upcoming_response.data[:10]%} {% if
+              {% for game in upcoming_response.data[:10]%} {% if
               game['sport_key'] == 'baseball_mlb' or game['sport_key'] ==
               'mma_mixed_martial_arts' or game['sport_key'] ==
-              'americanfootball_nfl'%}
+              'americanfootball_nfl'%} {% if game == undefined %}
+              <h1 class="display-2 font-weight-bold">No bets at this time</h1>
+              {% else %}
               <h4>{{game.sport_nice}}</h4>
               <div
                 class="
@@ -120,7 +120,7 @@
                 </div>
               </div>
               <br />
-              {%endif%} {% endfor %}{% endif%}
+              {% endif %} {% endif %} {% endfor %}
             </div>
           </div>
           <div

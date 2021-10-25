@@ -51,7 +51,6 @@ $(".add_bet").each(function (event) {
 
 function randWin() {
   if (Math.random() < 0.5) {
-    
   }
 }
 
@@ -61,6 +60,24 @@ $("#add_bet_form").submit(() => {
   }),
     259200000;
 });
+
+const upcoming = $("#upcoming");
+const nfl = $("#nfl");
+const mlb = $("#mlb");
+const mma = $("#mma");
+
+if (upcoming.first().val() == "") {
+  upcoming.prepend("No bets at this time.");
+}
+if (nfl.first().val() == "") {
+  nfl.prepend("No bets at this time.");
+}
+if (mlb.first().val() == "") {
+  mlb.prepend("No bets at this time.");
+}
+if (mma.first().val() == "") {
+  mma.prepend("No bets at this time.");
+}
 
 $("#cancel_bet").click(function () {
   $("#add_bet_form").hide();
