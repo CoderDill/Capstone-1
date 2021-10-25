@@ -6,7 +6,7 @@ from models import db, connect_db, User, Bet
 from forms import UserSignInForm, UserSignUpForm, AddBetForm
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import desc
-from secret import API_KEY
+from hiding import API_KEY
 from threading import Timer
 import os
 
