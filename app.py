@@ -202,28 +202,33 @@ def accounts():
 @app.route("/add_bet", methods=["POST"])
 def add_bet():
     form = AddBetForm()
+    amt_wagered = "{:.2f}".format(float(request.form["amt_wagered"]))
+    float_amt_wagered = float(amt_wagered)
 
+    user_id = g.user.id
+    user = User.query.get(user_id)
+    form_data = request.form['hidden']
+    bet_data = form_data.split(',')
+
+    if float_amt_wagered > user.balance:
+        flash("Insufficient funds", 'danger')
+        return redirect("/")
     if form.validate_on_submit():
-        form_data = request.form['hidden']
-        bet_data = form_data.split(',')
-        amt_wagered = "{:.2f}".format(float(request.form["amt_wagered"]))
+
         bet_odds = bet_data[2]
         float_bet_odds = float(bet_odds)
-        float_amt_wagered = float(amt_wagered)
         pos_win = ((float_bet_odds * float_amt_wagered) + float_amt_wagered)
-        user_id = g.user.id
 
         new_bet = Bet(name=bet_data[3], team_1=bet_data[0], team_2=bet_data[1],
                       amt_wagered=amt_wagered, pos_win=pos_win, user_id=user_id)
 
-        user = User.query.get(user_id)
         user.balance = user.balance - float_amt_wagered
 
         db.session.add(new_bet)
 
         # def randWin():
         #     print("called randWin")
-            
+
         if bool(random.getrandbits(1)):
             print("true")
             new_bet.result = 'won'
