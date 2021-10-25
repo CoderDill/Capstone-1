@@ -66,16 +66,17 @@ const nfl = $("#nfl");
 const mlb = $("#mlb");
 const mma = $("#mma");
 
-if (upcoming.first().val() == "") {
+console.log(upcoming, nfl, mlb, mma)
+if (upcoming.children().text().trim() == '') {
   upcoming.prepend("No bets at this time.");
 }
-if (nfl.first().val() == "") {
+if (nfl.children().text().trim() == '') {
   nfl.prepend("No bets at this time.");
 }
-if (mlb.first().val() == "") {
+if (mlb.children().text().trim() == '') {
   mlb.prepend("No bets at this time.");
 }
-if (mma.first().val() == "") {
+if (mma.children().text().trim() == "") {
   mma.prepend("No bets at this time.");
 }
 
