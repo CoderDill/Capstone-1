@@ -1,5 +1,9 @@
 Sports betting app
     Live Sports Odds API - https://rapidapi.com/theoddsapi/api/live-sports-odds/
+    Sportspage Feeds - https://rapidapi.com/SportspageFeeds/api/sportspage-feeds/  
+        - Sportspage Feeds is a much more comprehensive API where I could have received live accurate results for each bet.
+          Sportspage Feeds costs money
+
 
 Valorant app
     Riot developer portal - https://developer.riotgames.com/apis#val-content-v1/GET_getContent

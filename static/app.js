@@ -1,3 +1,4 @@
+// bootstrap trigger tab list
 var triggerTabList = [].slice.call(document.querySelectorAll("#myTab a"));
 triggerTabList.forEach(function (triggerEl) {
   var tabTrigger = new bootstrap.Tab(triggerEl);
@@ -8,15 +9,16 @@ triggerTabList.forEach(function (triggerEl) {
   });
 });
 
+// add a click evt to each bet's + symbol
 $(".add_bet").each(function (event) {
   $(this).on("click", function (event) {
     event.preventDefault();
     $("#no_bets").hide();
 
+    // Get Home/Away teams for game
     const team = $(this).parent().prev().prev();
-    console.log(team);
     const $team = team[0].id;
-    console.log($team);
+    
     let homeTeam;
     let awayTeam;
     if ($team === "away_team") {
@@ -29,10 +31,10 @@ $(".add_bet").each(function (event) {
       awayTeam = team.parent().prev().children("#away_team").text().trim();
     }
 
+    // Get users team, show the form to submit bet, add needed backend data to a hidden tag that submits with form.
     const teamToBet = team.text().trim();
     const $teamName = $("<b>").attr("class", "team_to_bet").text(teamToBet);
     const betForm = $("#add_bet_form");
-
     betForm.show();
     const selectedBetPrice = $(this).parent().prev().find("b")[0].textContent;
 
@@ -49,19 +51,27 @@ $(".add_bet").each(function (event) {
   });
 });
 
-function randWin() {
-  if (Math.random() < 0.5) {
-    
-  }
+// if there are not games for a section, show message.
+const upcoming = $("#upcoming");
+const nfl = $("#nfl");
+const mlb = $("#mlb");
+const mma = $("#mma");
+
+console.log(upcoming, nfl, mlb, mma);
+if (upcoming.children().text().trim() == "") {
+  upcoming.prepend("<h1 class='font-weight-bold m-2'>No upcoming bets at this time.</h1>");
+}
+if (nfl.children().text().trim() == "") {
+  nfl.prepend("<h1 class='font-weight-bold m-2'>No NFL bets at this time.</h1>");
+}
+if (mlb.children().text().trim() == "") {
+  mlb.prepend("<h1 class='font-weight-bold m-2'>No MLB bets at this time.</h1>");
+}
+if (mma.children().text().trim() == "") {
+  mma.prepend("<h1 class='font-weight-bold m-2'>No MMA bets at this time.</h1>");
 }
 
-$("#add_bet_form").submit(() => {
-  setTimeout(() => {
-    randWin();
-  }),
-    259200000;
-});
-
+// Cancel bet btn hides bet form
 $("#cancel_bet").click(function () {
   $("#add_bet_form").hide();
   $(".team_to_bet").hide();
@@ -69,5 +79,7 @@ $("#cancel_bet").click(function () {
   $(".X").hide();
   $(".add_bet").show();
 });
+
+// Tabs between Sports
 var triggerEl = document.querySelector('#myTab a[href="#upcoming"]');
 bootstrap.Tab.getInstance(triggerEl).show(); // Select tab by name);
