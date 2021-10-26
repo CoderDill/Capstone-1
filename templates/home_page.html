@@ -1,363 +1,274 @@
 {% extends 'base.html'%} {% block content %}
 <div class="container">
-  <div class="row align-items-start">
-    <div class="col-9">
-      <h1 class="display-1 align-middle">CrappySports</h1>
-      <h6 class="display-9 text-muted text-center">Sports Betting</h6>
+    <div class="row align-items-start">
+        <div class="col-9">
+            <h1 class="display-1 align-middle">CrappySports</h1>
+            <h6 class="display-9 text-muted text-center">Sports Betting</h6>
+        </div>
+        {%if g.user%}
+        <div class="col-3">
+            <div class="row-3">
+                Balance: {{g.user.balance}} <a href="/logout">Logout</a>
+            </div>
+        </div>
+        {% endif %}
     </div>
-    {%if g.user%}
-    <div class="col-3">
-      <div class="row-3">
-        Balance: {{g.user.balance}} <a href="/logout">Logout</a>
-      </div>
-    </div>
-    {% endif %}
-  </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-7">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-          <li class="nav-item">
-            <a
-              class="nav-link active"
-              id="upcoming-tab"
-              data-toggle="tab"
-              href="#upcoming"
-              role="tab"
-              aria-controls="upcoming"
-              aria-selected="true"
-              >Upcoming</a
-            >
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              id="nfl-tab"
-              data-toggle="tab"
-              href="#nfl"
-              role="tab"
-              aria-controls="nfl"
-              aria-selected="false"
-              >NFL</a
-            >
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              id="mlb-tab"
-              data-toggle="tab"
-              href="#mlb"
-              role="tab"
-              aria-controls="mlb"
-              aria-selected="false"
-              >MLB</a
-            >
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              id="mma-tab"
-              data-toggle="tab"
-              href="#mma"
-              role="tab"
-              aria-controls="mma"
-              aria-selected="false"
-              >MMA</a
-            >
-          </li>
-        </ul>
-        <div class="tab-content">
-          <div
-            class="tab-pane active"
-            id="upcoming"
-            role="tabpanel"
-            aria-labelledby="upcoming-tab"
-          >
-            <div class="container mt-2">
-              {% if upcoming_response.data.length == 0 %}
-              <h1 class="display-2 font-weight-bold">No bets at this time</h1>
-              {% else %} {% for game in upcoming_response.data[:10]%} {% if
+    <div class="container">
+        <div class="row">
+            <div class="col-7">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="upcoming-tab" data-toggle="tab" href="#upcoming" role="tab"
+                            aria-controls="upcoming" aria-selected="true">Upcoming</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="nfl-tab" data-toggle="tab" href="#nfl" role="tab" aria-controls="nfl"
+                            aria-selected="false">NFL</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="mlb-tab" data-toggle="tab" href="#mlb" role="tab" aria-controls="mlb"
+                            aria-selected="false">MLB</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="mma-tab" data-toggle="tab" href="#mma" role="tab" aria-controls="mma"
+                            aria-selected="false">MMA</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="upcoming" role="tabpanel" aria-labelledby="upcoming-tab">
+                        <div class="container mt-2">
+                            {% if upcoming_response.data.length == 0 %}
+                            <h1 class="display-2 font-weight-bold">No bets at this time</h1>
+                            {% else %} {% for game in upcoming_response.data[:10]%} {% if
               game['sport_key'] == 'baseball_mlb' or game['sport_key'] ==
               'mma_mixed_martial_arts' or game['sport_key'] ==
               'americanfootball_nfl'%}
-              <h4>{{game.sport_nice}}</h4>
-              <div
-                class="
+                            <h4>{{game.sport_nice}}</h4>
+                            <div class="
                   row
                   align-items-center
                   justify-content-between
                   border border-rounded
                   p-2
-                "
-              >
-                <div class="col-4" id="away_team">{{game['teams'][0]}}</div>
-                <div class="col-1">
-                  <b>{{game['sites'][0]['odds']['h2h'][0]}}</b>
-                </div>
-                <div class="col-1">
-                  <a class="add_bet" href="" style="color: rgb(2, 117, 216)"
-                    ><i class="far fa-plus-square fa-lg"></i
-                  ></a>
-                </div>
-              </div>
-              <div
-                class="
+                ">
+                                <div class="col-4" id="away_team">{{game['teams'][0]}}</div>
+                                <div class="col-1">
+                                    <b>{{game['sites'][0]['odds']['h2h'][0]}}</b>
+                                </div>
+                                <div class="col-1">
+                                    <a class="add_bet" href="" style="color: rgb(2, 117, 216)"><i
+                                            class="far fa-plus-square fa-lg"></i></a>
+                                </div>
+                            </div>
+                            <div class="
                   row
                   align-items-center
                   justify-content-between
                   border border-rounded
                   p-2
-                "
-              >
-                <div class="col-4" id="home_team">{{game['teams'][1]}}</div>
-                <div class="col-1">
-                  <b>{{game['sites'][0]['odds']['h2h'][1]}}</b>
-                </div>
-                <div class="col-1">
-                  <a class="add_bet" href="" style="color: rgb(2, 117, 216)"
-                    ><i class="far fa-plus-square fa-lg"></i
-                  ></a>
-                </div>
-              </div>
-              <br />
-              {%endif%} {% endfor %}{% endif%}
-            </div>
-          </div>
-          <div
-            class="tab-pane"
-            id="nfl"
-            role="tabpanel"
-            aria-labelledby="nfl-tab"
-          >
-            <div class="container mt-2">
-              {% for game in nfl_response.data[:10]%}
-              <div
-                class="
-                  row
-                  align-items-center
-                  justify-content-between
-                  border border-rounded
-                  p-2
-                "
-              >
-                <div class="col-4" id="away_team">{{game['teams'][0]}}</div>
-                <div class="col-1">
-                  <b>{{game['sites'][0]['odds']['h2h'][0]}}</b>
-                </div>
-                <div class="col-1">
-                  <a class="add_bet" href="" style="color: rgb(2, 117, 216)"
-                    ><i class="far fa-plus-square fa-lg"></i
-                  ></a>
-                </div>
-              </div>
-
-              <div
-                class="
-                  row
-                  align-items-center
-                  justify-content-between
-                  border border-rounded
-                  p-2
-                "
-              >
-                <div class="col-4" id="home_team">{{game['teams'][1]}}</div>
-                <div class="col-1">
-                  <b>{{game['sites'][0]['odds']['h2h'][1]}}</b>
-                </div>
-                <div class="col-1">
-                  <a class="add_bet" href="" style="color: rgb(2, 117, 216)"
-                    ><i class="far fa-plus-square fa-lg"></i
-                  ></a>
-                </div>
-              </div>
-              <br />
-              {% endfor %}
-            </div>
-          </div>
-          <div
-            class="tab-pane"
-            id="mlb"
-            role="tabpanel"
-            aria-labelledby="mlb-tab"
-          >
-            <div class="container mt-2">
-              {% for game in mlb_response.data[:10]%}
-              <div
-                class="
-                  row
-                  align-items-center
-                  justify-content-between
-                  border border-rounded
-                  p-2
-                "
-              >
-                <div class="col-4" id="away_team">{{game['teams'][0]}}</div>
-                <div class="col-1">
-                  <b>{{game['sites'][0]['odds']['h2h'][0]}}</b>
-                </div>
-                <div class="col-1">
-                  <a class="add_bet" href="" style="color: rgb(2, 117, 216)"
-                    ><i class="far fa-plus-square fa-lg"></i
-                  ></a>
-                </div>
-              </div>
-
-              <div
-                class="
-                  row
-                  align-items-center
-                  justify-content-between
-                  border border-rounded
-                  p-2
-                "
-              >
-                <div class="col-4" id="home_team">{{game['teams'][1]}}</div>
-                <div class="col-1">
-                  <b>{{game['sites'][0]['odds']['h2h'][1]}}</b>
-                </div>
-                <div class="col-1">
-                  <a class="add_bet" href="" style="color: rgb(2, 117, 216)"
-                    ><i class="far fa-plus-square fa-lg"></i
-                  ></a>
-                </div>
-              </div>
-              <br />
-              {% endfor %}
-            </div>
-          </div>
-          <div
-            class="tab-pane"
-            id="mma"
-            role="tabpanel"
-            aria-labelledby="mma-tab"
-          >
-            <div class="container mt-2">
-              {% for game in mma_response.data[:10]%}
-              <div
-                class="
-                  row
-                  align-items-center
-                  justify-content-between
-                  border border-rounded
-                  p-2
-                "
-              >
-                <div class="col-4" id="away_team">{{game['teams'][0]}}</div>
-                <div class="col-1">
-                  <b>{{game['sites'][0]['odds']['h2h'][0]}}</b>
-                </div>
-                <div class="col-1">
-                  <a class="add_bet" href="" style="color: rgb(2, 117, 216)"
-                    ><i class="far fa-plus-square fa-lg"></i
-                  ></a>
-                </div>
-              </div>
-
-              <div
-                class="
-                  row
-                  align-items-center
-                  justify-content-between
-                  border border-rounded
-                  p-2
-                "
-              >
-                <div class="col-4" id="home_team">{{game['teams'][1]}}</div>
-                <div class="col-1">
-                  <b>{{game['sites'][0]['odds']['h2h'][1]}}</b>
-                </div>
-                <div class="col-1">
-                  <a class="add_bet" href="" style="color: rgb(2, 117, 216)"
-                    ><i class="far fa-plus-square fa-lg"></i
-                  ></a>
-                </div>
-              </div>
-              <br />
-              {% endfor %}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-5">
-        {% if not g.user%}
-        <h4 class="display-6">Sign In</h4>
-        <form action="/sign_in" method="POST" id="sign_in_form">
-          {{ form_sign_in.hidden_tag() }} {% for field in form_sign_in if
-          field.widget.input_type != 'hidden'%} {% for error in field.errors %}
-          <span class="text-danger">{{ error }}</span> {% endfor %} {{
-          field(placeholder=field.label.text, class="form-control") }} {% endfor
-          %}
-
-          <button class="btn btn-outline-primary btn-block">Sign In</button>
-        </form>
-
-        <h4 class="display-6 mt-2">Sign Up</h4>
-        <form action="/sign_up" method="POST" id="sign_up_form">
-          {{ form_sign_up.hidden_tag() }} {% for field in form_sign_up if
-          field.widget.input_type != 'hidden'%} {% for error in field.errors %}
-          <span class="text-danger">{{ error }}</span> {% endfor %} {{
-          field(placeholder=field.label.text, class="form-control") }} {% endfor
-          %}
-
-          <button class="btn btn-outline-primary btn-block">Sign Up</button>
-        </form>
-        {% else %}
-        <div class="container gx-0">
-          <div class="row border border-rounded">
-            <h4 class="display-6" id="curr_user">{{g.user.username}}'s Bets</h4>
-          </div>
-          <div class="row" id="bets">
-            <form
-              action="/add_bet"
-              method="POST"
-              id="add_bet_form"
-              action="/login"
-              style="display: none"
-            >
-              {{ form_add_bet.hidden_tag() }} {% for field in form_add_bet if
-              field.widget.input_type != 'hidden'%}
-              <p>{{field.label}} {{field}}</p>
-              {% endfor%}
-              <button class="btn btn-outline-primary mt-1">Add Bet</button>
-              <button
-                type="button"
-                class="btn btn-outline-danger mt-1 mr-2"
-                id="cancel_bet"
-              >
-                Cancel
-              </button>
-            </form>
-            {% if not g.user.bets%}
-            <h3 class="display-6 text-center" id="no_bets">Make a bet</h3>
-            {% endif%}
-            <ul class="list-group">
-              {% for bet in bets[:10]%}
-              <div class="row">
-                <div class="col">
-                  <li class="list-group-item">
-                    Bet ${{bet.amt_wagered}} to win ${{bet.pos_win}} on
-                    <b>{{bet.name}}</b>
-                    <div class="row">
-                      <div class="col">{{bet.team_1}} vs. {{bet.team_2}}</div>
-                      <div class="col">
-                        <b>Result: </b>{{bet.result}} <br />
-                        {% if bet.result == "won" %}
-                        <b>Paid: </b>{{bet.pos_win}} {% endif %}
-                      </div>
+                ">
+                                <div class="col-4" id="home_team">{{game['teams'][1]}}</div>
+                                <div class="col-1">
+                                    <b>{{game['sites'][0]['odds']['h2h'][1]}}</b>
+                                </div>
+                                <div class="col-1">
+                                    <a class="add_bet" href="" style="color: rgb(2, 117, 216)"><i
+                                            class="far fa-plus-square fa-lg"></i></a>
+                                </div>
+                            </div>
+                            <br />
+                            {%endif%} {% endfor %}{% endif%}
+                        </div>
                     </div>
-                  </li>
+                    <div class="tab-pane" id="nfl" role="tabpanel" aria-labelledby="nfl-tab">
+                        <div class="container mt-2">
+                            {% for game in nfl_response.data[:10]%}
+                            <div class="
+                  row
+                  align-items-center
+                  justify-content-between
+                  border border-rounded
+                  p-2
+                ">
+                                <div class="col-4" id="away_team">{{game['teams'][0]}}</div>
+                                <div class="col-1">
+                                    <b>{{game['sites'][0]['odds']['h2h'][0]}}</b>
+                                </div>
+                                <div class="col-1">
+                                    <a class="add_bet" href="" style="color: rgb(2, 117, 216)"><i
+                                            class="far fa-plus-square fa-lg"></i></a>
+                                </div>
+                            </div>
+
+                            <div class="
+                  row
+                  align-items-center
+                  justify-content-between
+                  border border-rounded
+                  p-2
+                ">
+                                <div class="col-4" id="home_team">{{game['teams'][1]}}</div>
+                                <div class="col-1">
+                                    <b>{{game['sites'][0]['odds']['h2h'][1]}}</b>
+                                </div>
+                                <div class="col-1">
+                                    <a class="add_bet" href="" style="color: rgb(2, 117, 216)"><i
+                                            class="far fa-plus-square fa-lg"></i></a>
+                                </div>
+                            </div>
+                            <br />
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="mlb" role="tabpanel" aria-labelledby="mlb-tab">
+                        <div class="container mt-2">
+                            {% for game in mlb_response.data[:10]%}
+                            <div class="
+                  row
+                  align-items-center
+                  justify-content-between
+                  border border-rounded
+                  p-2
+                ">
+                                <div class="col-4" id="away_team">{{game['teams'][0]}}</div>
+                                <div class="col-1">
+                                    <b>{{game['sites'][0]['odds']['h2h'][0]}}</b>
+                                </div>
+                                <div class="col-1">
+                                    <a class="add_bet" href="" style="color: rgb(2, 117, 216)"><i
+                                            class="far fa-plus-square fa-lg"></i></a>
+                                </div>
+                            </div>
+
+                            <div class="
+                  row
+                  align-items-center
+                  justify-content-between
+                  border border-rounded
+                  p-2
+                ">
+                                <div class="col-4" id="home_team">{{game['teams'][1]}}</div>
+                                <div class="col-1">
+                                    <b>{{game['sites'][0]['odds']['h2h'][1]}}</b>
+                                </div>
+                                <div class="col-1">
+                                    <a class="add_bet" href="" style="color: rgb(2, 117, 216)"><i
+                                            class="far fa-plus-square fa-lg"></i></a>
+                                </div>
+                            </div>
+                            <br />
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="mma" role="tabpanel" aria-labelledby="mma-tab">
+                        <div class="container mt-2">
+                            {% for game in mma_response.data[:10]%}
+                            <div class="
+                  row
+                  align-items-center
+                  justify-content-between
+                  border border-rounded
+                  p-2
+                ">
+                                <div class="col-4" id="away_team">{{game['teams'][0]}}</div>
+                                <div class="col-1">
+                                    <b>{{game['sites'][0]['odds']['h2h'][0]}}</b>
+                                </div>
+                                <div class="col-1">
+                                    <a class="add_bet" href="" style="color: rgb(2, 117, 216)"><i
+                                            class="far fa-plus-square fa-lg"></i></a>
+                                </div>
+                            </div>
+
+                            <div class="
+                  row
+                  align-items-center
+                  justify-content-between
+                  border border-rounded
+                  p-2
+                ">
+                                <div class="col-4" id="home_team">{{game['teams'][1]}}</div>
+                                <div class="col-1">
+                                    <b>{{game['sites'][0]['odds']['h2h'][1]}}</b>
+                                </div>
+                                <div class="col-1">
+                                    <a class="add_bet" href="" style="color: rgb(2, 117, 216)"><i
+                                            class="far fa-plus-square fa-lg"></i></a>
+                                </div>
+                            </div>
+                            <br />
+                            {% endfor %}
+                        </div>
+                    </div>
                 </div>
-              </div>
-              {% endfor %}
-            </ul>
-          </div>
+            </div>
+            <div class="col-5">
+                {% if not g.user%}
+                <h4 class="display-6">Sign In</h4>
+                <form action="/sign_in" method="POST" id="sign_in_form">
+                    {{ form_sign_in.hidden_tag() }} {% for field in form_sign_in if
+          field.widget.input_type != 'hidden'%} {% for error in field.errors %}
+                    <span class="text-danger">{{ error }}</span> {% endfor %} {{
+          field(placeholder=field.label.text, class="form-control") }} {% endfor
+          %}
+
+                    <button class="btn btn-outline-primary btn-block">Sign In</button>
+                </form>
+
+                <h4 class="display-6 mt-2">Sign Up</h4>
+                <form action="/sign_up" method="POST" id="sign_up_form">
+                    {{ form_sign_up.hidden_tag() }} {% for field in form_sign_up if
+          field.widget.input_type != 'hidden'%} {% for error in field.errors %}
+                    <span class="text-danger">{{ error }}</span> {% endfor %} {{
+          field(placeholder=field.label.text, class="form-control") }} {% endfor
+          %}
+
+                    <button class="btn btn-outline-primary btn-block">Sign Up</button>
+                </form>
+                {% else %}
+                <div class="container gx-0">
+                    <div class="row border border-rounded">
+                        <h4 class="display-6" id="curr_user">{{g.user.username}}'s Bets</h4>
+                    </div>
+                    <div class="row" id="bets">
+                        <form action="/add_bet" method="POST" id="add_bet_form" action="/login" style="display: none">
+                            {{ form_add_bet.hidden_tag() }} {% for field in form_add_bet if
+              field.widget.input_type != 'hidden'%}
+                            <p>{{field.label}} {{field}}</p>
+                            {% endfor%}
+                            <button class="btn btn-outline-primary mt-1">Add Bet</button>
+                            <button type="button" class="btn btn-outline-danger mt-1 mr-2" id="cancel_bet">
+                                Cancel
+                            </button>
+                        </form>
+                        {% if not g.user.bets%}
+                        <h3 class="display-6 text-center" id="no_bets">Make a bet</h3>
+                        {% endif%}
+                    <div class="row">
+                        <div class="card-group">
+                            {% for bet in bets[:10]%}
+                            <div class="card border-secondary mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Bet ${{bet.amt_wagered}} to win ${{bet.pos_win}} on
+                                    {{bet.name}}</div>
+                                <div class="card-body text-secondary">
+                                    <h5 class="card-title">{{bet.team_1}} vs. {{bet.team_2}}</h5>
+                                    <p class="card-text"><b>Result: </b>{{bet.result}} <br />
+                                        {% if bet.result == "won" %}
+                                        <b>Paid: </b>{{bet.pos_win}} {% endif %}
+                                </div>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
         </div>
-        {% endif %}
-      </div>
+        <div class="navbar fixed-bottom navbar-light bg-light p-2">
+            <span class="mx-auto">CrappySports created by Matthew Dillon</span>
+        </div>
     </div>
-  </div>
-  <div class="navbar fixed-bottom navbar-light bg-light p-2">
-    <span class="mx-auto">CrappySports created by Matthew Dillon</span>
-  </div>
 </div>
 {% endblock %}
