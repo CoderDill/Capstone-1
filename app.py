@@ -8,10 +8,10 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy import desc
 from threading import Timer
 import os
-from secret import API_KEY
+
 
 # Get API_KEY & Set current User
-API_KEY = os.environ.get('API_KEY', API_KEY)
+API_KEY = os.environ.get('API_KEY')
 CURR_USER_KEY = "curr_user"
 
 app = Flask(__name__)
