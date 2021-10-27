@@ -243,7 +243,7 @@ def add_bet():
 
         # Calculate possible win
         pos_win = ((float_bet_odds * float_amt_wagered) + float_amt_wagered)
-
+        round(pos_win, 2)
         # Take form data & hidden tag data to make new bet
         new_bet = Bet(name=bet_data[3], team_1=bet_data[0], team_2=bet_data[1],
                       amt_wagered=amt_wagered, pos_win=pos_win, user_id=user_id)
