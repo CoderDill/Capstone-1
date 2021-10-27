@@ -20,3 +20,6 @@ class AddBetForm(FlaskForm):
     amt_wagered = IntegerField("Amount", validators=[InputRequired()])
     hidden = HiddenField("hidden")
     
+class AddResultForm(FlaskForm):
+    result = StringField("Result", validators=[InputRequired()])
+    hidden_result = HiddenField("hidden")
