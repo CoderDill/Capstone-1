@@ -339,23 +339,40 @@
               <div class="row">
                 <div class="col">
                   <li class="list-group-item">
-                   <b id="bet_id" value={{bet.id}}>Bet ID: {{bet.id}}</b> <br> Bet ${{bet.amt_wagered}} to win ${{bet.pos_win}} on
+                    <b id="bet_id" value="{{bet.id}}">Bet ID: {{bet.id}}</b>
+                    <br />
+                    Bet ${{bet.amt_wagered}} to win ${{bet.pos_win}} on
                     <b>{{bet.name}}</b>
                     <div class="row">
                       <div class="col">{{bet.team_1}} vs. {{bet.team_2}}</div>
                       <div class="col">
                         <b>Result: </b>{{bet.result}} <br />
                         {% if bet.result == 'pending'%}
-                        <form action="/result" method="POST" id="results_form">
+                        <form
+                          action="/result"
+                          method="POST"
+                          id="result_form"
+                          style="display: none"
+                        >
                           {{ form_add_result.hidden_tag() }} {% for field in
                           form_add_result if field.widget.input_type !=
                           'hidden'%}
                           <p>{{field.label}} {{field}}</p>
                           {% endfor %}
-                          <button class="btn btn-outline-primary mt-1" id="enter_result">
+                          <button
+                            class="btn btn-outline-primary mt-1"
+                            id="enter_result"
+                          >
                             Enter Result
                           </button>
                         </form>
+                        <b>Enter Result </b>
+                        <a
+                          class="show_result_form"
+                          href=""
+                          style="color: rgb(2, 117, 216)"
+                          ><i class="far fa-plus-square fa-lg"></i
+                        ></a>
                         {% else %} {% if bet.result == "won" %}
                         <b>Paid: </b>{{bet.pos_win}} {% endif %} {% endif %}
                       </div>

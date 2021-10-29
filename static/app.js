@@ -76,13 +76,18 @@ if (mma.children().text().trim() == "") {
   );
 }
 
-$("#enter_result").each(function (event) {
-  $(this).click(function (event) {
+$(".show_result_form").each(function (event) {
+  $(this).on("click", function (event) {
     event.preventDefault();
-
-    bet_id = $(this).parentsUntil(".list-group-item").children("#bet_id").value
-    console.log(bet_id);
-    $("#hidden_result").val([bet_id]);
+    const $form = $(this).prev().prev();
+    $form.show();
+    const bet_id = $form
+      .parent()
+      .parent()
+      .parent()
+      .children("#bet_id")
+      .attr("value");
+    $form.children("#hidden_result").val(bet_id);
   });
 });
 
