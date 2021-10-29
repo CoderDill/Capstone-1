@@ -8,7 +8,7 @@
     </div>
     {%if g.user%}
     <div class="col-sm-3">
-      <div class="row-3">
+      <div class="row-3 mt-2">
         Balance: {{g.user.balance}} <a href="/logout">Logout</a>
       </div>
     </div>
@@ -345,9 +345,8 @@
                     <b>{{bet.name}}</b>
                     <div class="row">
                       <div class="col">{{bet.team_1}} vs. {{bet.team_2}}</div>
-                      <div class="col">
+                      <div class="col overflow-auto">
                         <b>Result: </b>{{bet.result}} <br />
-                        
                         <form
                           action="/result"
                           method="POST"
