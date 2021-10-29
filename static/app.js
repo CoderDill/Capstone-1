@@ -79,6 +79,7 @@ if (mma.children().text().trim() == "") {
 $(".show_result_form").each(function (event) {
   $(this).on("click", function (event) {
     event.preventDefault();
+
     const $form = $(this).prev().prev();
     $form.show();
     const bet_id = $form
@@ -88,6 +89,8 @@ $(".show_result_form").each(function (event) {
       .children("#bet_id")
       .attr("value");
     $form.children("#hidden_result").val(bet_id);
+    $(this).hide();
+    $(this).prev().hide();
   });
 });
 

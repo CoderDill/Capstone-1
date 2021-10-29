@@ -347,7 +347,7 @@
                       <div class="col">{{bet.team_1}} vs. {{bet.team_2}}</div>
                       <div class="col">
                         <b>Result: </b>{{bet.result}} <br />
-                        {% if bet.result == 'pending'%}
+                        
                         <form
                           action="/result"
                           method="POST"
@@ -366,6 +366,7 @@
                             Enter Result
                           </button>
                         </form>
+                        {% if bet.result == 'pending'%}
                         <b>Enter Result </b>
                         <a
                           class="show_result_form"

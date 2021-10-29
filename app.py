@@ -270,6 +270,7 @@ def add_bet():
         return redirect("/")
     return redirect("/")
 
+
 @app.route("/result", methods=["POST"])
 def add_result():
     form = AddResultForm()
@@ -280,18 +281,22 @@ def add_result():
         user_id = g.user.id
         user = User.query.get(user_id)
 
-        bet_id = request.form['bet_id']
+        bet_id = request.form['hidden_result']
         bet = Bet.query.get(bet_id)
 
         if result == 'won':
             bet.result = result
-            user.balance = user.balance + user.pos_win
+            user.balance = user.balance + bet.pos_win
 
+            db.session.commit()
+        if result == 'lost':
+            bet.result = result
             db.session.commit()
 
         return redirect("/")
     flash("Enter won or lost", 'danger')
     return redirect("/")
+
 
 @app.route("/logout")
 def logout():
