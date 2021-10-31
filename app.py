@@ -2,6 +2,7 @@ from flask import Flask, request, render_template, redirect, flash, session, jso
 from flask_debugtoolbar import DebugToolbarExtension
 import requests
 import random
+from secret import API_KEY
 from models import db, connect_db, User, Bet
 from forms import UserSignInForm, UserSignUpForm, AddBetForm, AddResultForm
 from sqlalchemy.exc import IntegrityError
@@ -10,8 +11,7 @@ import os
 
 
 # Get API_KEY & Set current User
-API_KEY = os.environ.get(
-    'API_KEY', '462e5708d7msh6be12143d24c056p1a05b0jsn6f202208f183')
+API_KEY = API_KEY
 CURR_USER_KEY = "curr_user"
 
 app = Flask(__name__)
