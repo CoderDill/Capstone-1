@@ -1,5 +1,4 @@
 # CrappySports
-
 A sports betting website.
 
 **VISIT HERE:**\
