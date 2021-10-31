@@ -18,14 +18,12 @@ $(".add_bet").each(function (event) {
     // Get Home/Away teams for game
     const team = $(this).parent().prev().prev();
     const $team = team[0].id;
-    
+
     let homeTeam;
     let awayTeam;
     if ($team === "away_team") {
       homeTeam = team.parent().next().children("#home_team").text().trim();
-      console.log(homeTeam);
       awayTeam = team.text().trim();
-      console.log(awayTeam);
     } else {
       homeTeam = team.text().trim();
       awayTeam = team.parent().prev().children("#away_team").text().trim();
@@ -57,19 +55,44 @@ const nfl = $("#nfl");
 const mlb = $("#mlb");
 const mma = $("#mma");
 
-console.log(upcoming, nfl, mlb, mma);
 if (upcoming.children().text().trim() == "") {
-  upcoming.prepend("<h1 class='font-weight-bold m-2'>No upcoming bets at this time.</h1>");
+  upcoming.prepend(
+    "<h1 class='font-weight-bold m-2'>No upcoming bets at this time.</h1>"
+  );
 }
 if (nfl.children().text().trim() == "") {
-  nfl.prepend("<h1 class='font-weight-bold m-2'>No NFL bets at this time.</h1>");
+  nfl.prepend(
+    "<h1 class='font-weight-bold m-2'>No NFL bets at this time.</h1>"
+  );
 }
 if (mlb.children().text().trim() == "") {
-  mlb.prepend("<h1 class='font-weight-bold m-2'>No MLB bets at this time.</h1>");
+  mlb.prepend(
+    "<h1 class='font-weight-bold m-2'>No MLB bets at this time.</h1>"
+  );
 }
 if (mma.children().text().trim() == "") {
-  mma.prepend("<h1 class='font-weight-bold m-2'>No MMA bets at this time.</h1>");
+  mma.prepend(
+    "<h1 class='font-weight-bold m-2'>No MMA bets at this time.</h1>"
+  );
 }
+
+$(".show_result_form").each(function (event) {
+  $(this).on("click", function (event) {
+    event.preventDefault();
+
+    const $form = $(this).prev().prev();
+    $form.show();
+    const bet_id = $form
+      .parent()
+      .parent()
+      .parent()
+      .children("#bet_id")
+      .attr("value");
+    $form.children("#hidden_result").val(bet_id);
+    $(this).hide();
+    $(this).prev().hide();
+  });
+});
 
 // Cancel bet btn hides bet form
 $("#cancel_bet").click(function () {

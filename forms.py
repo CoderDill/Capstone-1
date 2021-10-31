@@ -19,4 +19,9 @@ class UserSignUpForm(FlaskForm):
 class AddBetForm(FlaskForm):
     amt_wagered = IntegerField("Amount", validators=[InputRequired()])
     hidden = HiddenField("hidden")
-    
+
+
+class AddResultForm(FlaskForm):
+    result = StringField("Result", validators=[InputRequired()], render_kw={
+                         "placeholder": "Enter won or lost"})
+    hidden_result = HiddenField("hidden")

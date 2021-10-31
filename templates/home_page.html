@@ -1,18 +1,16 @@
 {% extends 'base.html'%} {% block content %}
 <!-- CrappySports title & User info -->
 <div class="container">
-    <div class="row align-items-start">
-        <div class="col-9">
-            <h1 class="display-1 align-middle">CrappySports</h1>
-            <h6 class="display-9 text-muted text-center">Sports Betting</h6>
-        </div>
-        {%if g.user%}
-        <div class="col-3">
-            <div class="row-3">
-                Balance: {{g.user.balance}} <a href="/logout">Logout</a>
-            </div>
-        </div>
-        {% endif %}
+  <div class="row align-items-start">
+    <div class="col-9">
+      <h1 class="display-1 align-middle">CrappySports</h1>
+      <h6 class="display-9 text-muted text-center">Sports Betting</h6>
+    </div>
+    {%if g.user%}
+    <div class="col-sm-3">
+      <div class="row-3 mt-2">
+        Balance: {{g.user.balance}} <a href="/logout">Logout</a>
+      </div>
     </div>
     {% endif %}
   </div>
@@ -291,7 +289,6 @@
               action="/add_bet"
               method="POST"
               id="add_bet_form"
-              action="/login"
               style="display: none"
             >
               {{ form_add_bet.hidden_tag() }} {% for field in form_add_bet if
@@ -315,10 +312,12 @@
               <div class="row">
                 <div class="col">
                   <li class="list-group-item">
-                    Bet ${{bet.amt_wagered}} to win ${{round(bet.pos_win, 2)}}
-                    on
+                    <b id="bet_id" value="{{bet.id}}">Bet ID: {{bet.id}}</b>
+                    <br />
+                    Bet ${{bet.amt_wagered}} to win ${{bet.pos_win}} on
                     <b>{{bet.name}}</b>
                     <div class="row">
+<<<<<<< HEAD
                         <div class="card-group">
                             {% for bet in bets[:10]%}
                             <div class="card border-secondary mb-3" style="max-width: 18rem;">
@@ -335,6 +334,40 @@
                         </div>
                     </div>
                         {% endfor %}
+=======
+                      <div class="col">{{bet.team_1}} vs. {{bet.team_2}}</div>
+                      <div class="col overflow-auto">
+                        <b>Result: </b>{{bet.result}} <br />
+                        <form
+                          action="/result"
+                          method="POST"
+                          id="result_form"
+                          style="display: none"
+                        >
+                          {{ form_add_result.hidden_tag() }} {% for field in
+                          form_add_result if field.widget.input_type !=
+                          'hidden'%}
+                          <p>{{field.label}} {{field}}</p>
+                          {% endfor %}
+                          <button
+                            class="btn btn-outline-primary mt-1"
+                            id="enter_result"
+                          >
+                            Enter Result
+                          </button>
+                        </form>
+                        {% if bet.result == 'pending'%}
+                        <b>Enter Result </b>
+                        <a
+                          class="show_result_form"
+                          href=""
+                          style="color: rgb(2, 117, 216)"
+                          ><i class="far fa-plus-square fa-lg"></i
+                        ></a>
+                        {% else %} {% if bet.result == "won" %}
+                        <b>Paid: </b>{{bet.pos_win}} {% endif %} {% endif %}
+                      </div>
+>>>>>>> a8220357f4b49b2c5675cedb4f01d96dc1432090
                     </div>
                 </div>
                 {% endif %}

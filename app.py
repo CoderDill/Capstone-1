@@ -3,21 +3,21 @@ from flask_debugtoolbar import DebugToolbarExtension
 import requests
 import random
 from models import db, connect_db, User, Bet
-from forms import UserSignInForm, UserSignUpForm, AddBetForm
+from forms import UserSignInForm, UserSignUpForm, AddBetForm, AddResultForm
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import desc
-from threading import Timer
 import os
 
 
 # Get API_KEY & Set current User
-API_KEY = os.environ.get('API_KEY')
+API_KEY = os.environ.get(
+    'API_KEY', '462e5708d7msh6be12143d24c056p1a05b0jsn6f202208f183')
 CURR_USER_KEY = "curr_user"
 
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
-    'DATABASE_URL', 'postgresql:///crappysports_db')
+    'DATABASE_URI', 'postgresql:///crappysports_db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 app.config['SECRET_KEY'] = API_KEY
@@ -132,6 +132,7 @@ def home_page():
     form_sign_in = UserSignInForm()
     form_sign_up = UserSignUpForm()
     form_add_bet = AddBetForm()
+    form_add_result = AddResultForm()
 
     # API Data
     upcoming_response = upcoming()
@@ -151,6 +152,7 @@ def home_page():
                                form_sign_in=form_sign_in,
                                form_sign_up=form_sign_up,
                                form_add_bet=form_add_bet,
+                               form_add_result=form_add_result,
                                bets=bets)
     return render_template("home_page.html",
                            upcoming_response=upcoming_response.json(),
@@ -210,9 +212,10 @@ def add_user():
 @app.route("/account")
 def accounts():
     """User's account page"""
+
     user_id = g.user.id
     user = User.query.get(user_id)
-    print(user)
+
     return render_template("account_page.html", user=user)
 
 
@@ -243,7 +246,7 @@ def add_bet():
 
         # Calculate possible win
         pos_win = ((float_bet_odds * float_amt_wagered) + float_amt_wagered)
-
+        round(pos_win, 2)
         # Take form data & hidden tag data to make new bet
         new_bet = Bet(name=bet_data[3], team_1=bet_data[0], team_2=bet_data[1],
                       amt_wagered=amt_wagered, pos_win=pos_win, user_id=user_id)
@@ -254,17 +257,44 @@ def add_bet():
         db.session.add(new_bet)
 
         # logic to automatically determine result by 50/50.
-        if bool(random.getrandbits(1)):
-            new_bet.result = 'won'
-            user.balance = user.balance + pos_win
-            db.session.commit()
-        else:
-            new_bet.result = 'lost'
-            db.session.commit()
+        # if bool(random.getrandbits(1)):
+        #     new_bet.result = 'won'
+        #     user.balance = user.balance + pos_win
+        #     db.session.commit()
+        # else:
+        #     new_bet.result = 'lost'
+        #     db.session.commit()
 
         db.session.commit()
 
         return redirect("/")
+    return redirect("/")
+
+
+@app.route("/result", methods=["POST"])
+def add_result():
+    form = AddResultForm()
+
+    if form.validate_on_submit():
+        result = request.form['result']
+
+        user_id = g.user.id
+        user = User.query.get(user_id)
+
+        bet_id = request.form['hidden_result']
+        bet = Bet.query.get(bet_id)
+
+        if result == 'won':
+            bet.result = result
+            user.balance = user.balance + bet.pos_win
+
+            db.session.commit()
+        if result == 'lost':
+            bet.result = result
+            db.session.commit()
+
+        return redirect("/")
+    flash("Enter won or lost", 'danger')
     return redirect("/")
 
 
